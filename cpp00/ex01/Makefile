@@ -19,6 +19,9 @@ clean:
 fclean: clean
 	rm -f $(NAME)
 
+run: all
+	./$(NAME)
+
 re: fclean all
 
 .PHONY: all clean fclean re
