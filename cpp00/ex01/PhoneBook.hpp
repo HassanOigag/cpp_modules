@@ -6,7 +6,7 @@
 /*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 13:10:24 by hoigag            #+#    #+#             */
-/*   Updated: 2023/10/24 17:57:16 by hoigag           ###   ########.fr       */
+/*   Updated: 2023/10/25 15:46:14 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 class PhoneBook {
 	public:
 		PhoneBook();
-		
 		int getCurrentSize();
 		Contact	getContact(int index);
 		void addContact(Contact c);

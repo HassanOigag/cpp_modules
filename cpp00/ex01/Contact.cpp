@@ -6,7 +6,7 @@
 /*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 13:30:51 by hoigag            #+#    #+#             */
-/*   Updated: 2023/10/24 16:28:35 by hoigag           ###   ########.fr       */
+/*   Updated: 2023/10/25 17:24:28 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 Contact::Contact()
 {
-    this->id = 0;
     this->firstName = "";
     this->lastName = "";
     this->nickName = "";
@@ -34,10 +33,9 @@ Contact::Contact(int id, std::string first_name, std::string last_name, std::str
 
 void Contact::print(void)
 {
-    std::cout << "ID             : " << this->id <<std::endl
-              << "First Name     : " << this->firstName << std::endl
+    std::cout << "First Name     : " << this->firstName << std::endl
               << "Last Name      : " << this->lastName << std::endl
-              << "Nick Name      : " << this->nickName << std::endl
+              << "Nickname       : " << this->nickName << std::endl
               << "Phone Number   : " << this->phoneNumber << std::endl
               << "Darkest Secret : " << this->darkestSecret << std::endl;
 }

@@ -6,7 +6,7 @@
 /*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 13:44:55 by hoigag            #+#    #+#             */
-/*   Updated: 2023/10/24 18:19:00 by hoigag           ###   ########.fr       */
+/*   Updated: 2023/10/25 17:31:44 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ Contact PhoneBook::getContact(int index)
 std::string PhoneBook::format(std::string str)
 {
     std::string newStr;
-    if (str.length() > 10)
+    if (str.length() > COLUMN_WIDH)
     {
         newStr = str.substr(0, COLUMN_WIDH - 1);
         newStr += ".";
