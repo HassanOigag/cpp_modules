@@ -1,16 +1,16 @@
-CC = c++
-CFLAGS = -Wall -Werror -Wextra -std=c++98
+CXX = c++
+CXXLAGS = -Wall -Werror -Wextra -std=c++98
 NAME = megaphone
 SRCS = $(wildcard *.cpp)
 OBJS = $(SRCS:.cpp=.o)
 
 %.o: %.cpp
-	$(CC) $(CFLAGS) -c $^
+	$(CXX) $(CXXFLAGS) -c $^
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $^ -o $@
+	$(CXX) $(CXXFLAGS) $^ -o $@
 
 clean:
 	rm -f $(OBJS)
