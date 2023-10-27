@@ -4,7 +4,7 @@ CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
 NAME = zombie
 
-SRCS = main.cpp Zombie.cpp newZombie.cpp randomChump.cpp
+SRCS = main.cpp Zombie.cpp zombieHorde.cpp
 
 OBJS = $(SRCS:.cpp=.o)
 
@@ -22,9 +22,9 @@ clean:
 fclean: clean
 	rm -f $(NAME)
 
-re: fclean all
-
 run: all
 	./$(NAME)
+
+re: fclean all
 
 .PHONY: all clean fclean re
