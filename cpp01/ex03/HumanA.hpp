@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   HumanA.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hoigag <student.1337.ma>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 12:29:34 by hoigag            #+#    #+#             */
-/*   Updated: 2023/10/27 13:30:30 by hoigag           ###   ########.fr       */
+/*   Updated: 2023/10/28 13:15:15 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 
 class HumanA {
 	public:
-		// HumanA();
 		HumanA(std::string name, Weapon& weapon);
 		void setName(std::string name);
 		void setWeapon(Weapon weapon);
