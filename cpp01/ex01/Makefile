@@ -4,17 +4,19 @@ CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
 NAME = zombie
 
-SRCS = main.cpp Zombie.cpp zombieHorde.cpp
+SRCS = hello.cpp main.cpp Zombie.cpp zombieHorde.cpp
+
+HEADERS = Zombie.hpp
 
 OBJS = $(SRCS:.cpp=.o)
 
 all: $(NAME)
 
-%.o: %.cpp Zombie.hpp
+%.o: %.cpp $(HEADERS)
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-$(NAME): $(OBJS)
-	$(CXX) $(CXXFLAGS) $^ -o $(NAME)
+$(NAME): $(OBJS) $(HEADERS)
+	$(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME)
 
 clean:
 	rm -f $(OBJS)
@@ -22,9 +24,9 @@ clean:
 fclean: clean
 	rm -f $(NAME)
 
+re: fclean all
+
 run: all
 	./$(NAME)
-
-re: fclean all
 
 .PHONY: all clean fclean re

@@ -6,7 +6,7 @@
 /*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 18:23:52 by hoigag            #+#    #+#             */
-/*   Updated: 2023/10/27 10:33:08 by hoigag           ###   ########.fr       */
+/*   Updated: 2023/10/30 15:47:36 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #define ZOMBIE_HPP
 
 #include <string>
-
+//adfasdffdasfdas
  
 class Zombie {
 	public:

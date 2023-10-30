@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoigag <student.1337.ma>                   +#+  +:+       +#+        */
+/*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 19:01:52 by hoigag            #+#    #+#             */
-/*   Updated: 2023/10/29 19:03:50 by hoigag           ###   ########.fr       */
+/*   Updated: 2023/10/30 15:29:20 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,6 @@ int main(int argc, char **argv)
 		return (1);
 	std::string level = argv[1];
 	Harl harl;
-	harl.complain(level);
+	harl.complain(level);//asdasf
 	return (0);
 }

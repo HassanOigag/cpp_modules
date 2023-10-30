@@ -6,14 +6,16 @@ NAME = weapon
 
 SRCS = HumanA.cpp HumanB.cpp main.cpp Weapon.cpp
 
+HEADERS = HumanA.hpp HumanB.hpp Weapon.hpp
+
 OBJS = $(SRCS:.cpp=.o)
 
 all: $(NAME)
 
-%.o: %.cpp
-	$(CXX) $(CXXFLAGS) -c $^ -o $@
+%.o: %.cpp $(HEADERS)
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-$(NAME): $(OBJS)
+$(NAME): $(OBJS) $(HEADERS)
 	$(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME)
 
 clean:

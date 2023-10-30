@@ -4,16 +4,18 @@ CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
 NAME = harlFilter
 
-SRCS = main.cpp Harl.cpp
+SRCS = Harl.cpp main.cpp
+
+HEADERS = Harl.hpp
 
 OBJS = $(SRCS:.cpp=.o)
 
 all: $(NAME)
 
-%.o: %.cpp
+%.o: %.cpp $(HEADERS)
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-$(NAME): $(OBJS)
+$(NAME): $(OBJS) $(HEADERS)
 	$(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME)
 
 clean:
