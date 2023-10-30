@@ -3,25 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoigag <student.1337.ma>                   +#+  +:+       +#+        */
+/*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 13:17:51 by hoigag            #+#    #+#             */
-/*   Updated: 2023/10/29 15:19:01 by hoigag           ###   ########.fr       */
+/*   Updated: 2023/10/30 13:20:27 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include <fstream>
 
-void findAndReplaceAll(std::string &str, std::string toReplace, std::string replaceWith)
+int findAndReplaceAll(std::string &str, std::string toReplace, std::string replaceWith)
 {
     size_t pos = str.find(toReplace);
     while (pos != std::string::npos)
     {
         str.erase(pos, toReplace.length());
         str.insert(pos, replaceWith);
-        pos = str.find(toReplace);
+        pos = str.find(toReplace, pos + replaceWith.length());
     }
+    return (1);
 }
 
 int main(int argc, char **argv)
@@ -43,8 +44,16 @@ int main(int argc, char **argv)
         std::cout << "could not open file: " << fileName << std::endl;
         return 1;   
     }
+    if (inputFile.peek() == EOF)
+    {
+        std::cout << fileName << " is empty" << std::endl;
+        inputFile.close();
+        return (1);
+    }
+    if (toReplace.empty())
+        return (0);
     std::ofstream outFile (outFileName.c_str());
-    if (!outFile.is_open()) 
+    if (!outFile) 
     {
         std::cout << "could not open file: " << outFileName << std::endl;
         inputFile.close();
@@ -53,10 +62,13 @@ int main(int argc, char **argv)
     std::string str;
     while (getline(inputFile, str))
     {
-        findAndReplaceAll(str, toReplace, toReplaceWith);
-        outFile << str << "\n";
+        if(!findAndReplaceAll(str, toReplace, toReplaceWith))
+            break;
+        outFile << str;
+        if (inputFile.peek() != EOF)
+            outFile << "\n";
     }
     outFile.close();
-    inputFile.close();
+    inputFile.close(); 
     return 0;
 }

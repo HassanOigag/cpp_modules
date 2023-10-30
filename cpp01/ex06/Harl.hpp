@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Harl.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoigag <student.1337.ma>                   +#+  +:+       +#+        */
+/*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 18:51:50 by hoigag            #+#    #+#             */
-/*   Updated: 2023/10/29 18:52:39 by hoigag           ###   ########.fr       */
+/*   Updated: 2023/10/30 10:03:51 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,4 @@ class Harl
 		void error(void);
 };
 
-typedef void(Harl::*harlFunc)();
 #endif

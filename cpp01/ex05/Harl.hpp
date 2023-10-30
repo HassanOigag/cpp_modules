@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Harl.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoigag <student.1337.ma>                   +#+  +:+       +#+        */
+/*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 15:30:05 by hoigag            #+#    #+#             */
-/*   Updated: 2023/10/29 19:21:17 by hoigag           ###   ########.fr       */
+/*   Updated: 2023/10/30 13:09:47 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,11 @@ class Harl
 {
 	public:
 		void complain(std::string level);
-	private:
+	private: 
 		void debug(void);
 		void info(void);
 		void warning(void);
 		void error(void);
 };
+typedef void(Harl::*harlFunc)();
 #endif
