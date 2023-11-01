@@ -6,7 +6,7 @@
 /*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 18:51:50 by hoigag            #+#    #+#             */
-/*   Updated: 2023/10/30 15:28:36 by hoigag           ###   ########.fr       */
+/*   Updated: 2023/10/30 10:03:51 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #define HARL_HPP
 
 #include <string>
-//adafasffsgdsgdafadsfadfadfasdfadsfasdf
+
 class Harl
 {
 	public:

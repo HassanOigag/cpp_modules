@@ -6,7 +6,7 @@
 /*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 11:54:57 by hoigag            #+#    #+#             */
-/*   Updated: 2023/10/30 16:30:46 by hoigag           ###   ########.fr       */
+/*   Updated: 2023/10/27 12:06:50 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ int main()
     std::cout << "stringPTR value  : " << stringPTR << std::endl;
     std::cout << "stringREF address: " << &stringREF << std::endl;
     std::cout << std::endl;
-    std::cout << "string value        : " << str <<  std::endl;
-    std::cout << "stringPTR points to : " << *stringPTR <<  std::endl;
-    std::cout << "stringREF value     : " << stringREF <<  std::endl;
+    std::cout << "string value       :" << str <<  std::endl;
+    std::cout << "stringPTR points to:" << *stringPTR <<  std::endl;
+    std::cout << "stringREF value    :" << stringREF <<  std::endl;
     return 0;
 }

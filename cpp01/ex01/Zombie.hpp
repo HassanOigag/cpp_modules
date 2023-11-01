@@ -6,7 +6,7 @@
 /*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 10:40:52 by hoigag            #+#    #+#             */
-/*   Updated: 2023/10/30 16:29:10 by hoigag           ###   ########.fr       */
+/*   Updated: 2023/10/27 11:26:16 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #define ZOMBIE_HPP
 
 #include <string>
-
+//asdf
 class Zombie {
 	public:
 		Zombie(void);
