@@ -6,7 +6,7 @@
 /*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 12:59:12 by hoigag            #+#    #+#             */
-/*   Updated: 2023/11/02 14:56:45 by hoigag           ###   ########.fr       */
+/*   Updated: 2023/11/02 13:52:17 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ class Fixed
 		~Fixed();
 		Fixed(const Fixed& other);
 		Fixed& operator=(const Fixed& other);
-
+		Fixed operator+(const Fixed& other);
 		int		getRawBits(void) const;
 		void	setRawBits(int const raw);
 		float	toFloat(void) const;
@@ -32,8 +32,6 @@ class Fixed
 		static const int nfBits;//number of fractional bits
 		
 };
-
 std::ostream& operator<<(std::ostream& stream, const Fixed& fixed);
-int power(int base, int power);
-	
+
 #endif

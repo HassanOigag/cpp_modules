@@ -6,7 +6,7 @@
 /*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 13:03:40 by hoigag            #+#    #+#             */
-/*   Updated: 2023/11/02 15:54:11 by hoigag           ###   ########.fr       */
+/*   Updated: 2023/11/02 13:52:42 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ Fixed::Fixed()
 Fixed::Fixed(const float number)
 {
     std::cout << "Float constructor called" << std::endl;
-    this->value = roundf(number * power(2, Fixed::nfBits));
+    // this->value = roundf(number * power(2, Fixed::nfBits));
+    value = number * (1 << nfBits);
 }
 
 Fixed::Fixed(const int number)
@@ -68,9 +69,16 @@ Fixed& Fixed::operator=(const Fixed& other)
     return *this;
 }
 
+Fixed Fixed::operator+(const Fixed& other)
+{
+    int i = this->value + other.value;
+    return Fixed(i);
+}
+
 float Fixed::toFloat(void) const
 {
-    return ((float)value / (power(2, Fixed::nfBits))); 
+    // return this->value * power(2, Fixed::nfBits);
+    return ((float)value / (1 << nfBits)); 
 }
 
 int Fixed::toInt(void) const
