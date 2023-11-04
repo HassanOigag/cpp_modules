@@ -6,28 +6,32 @@
 /*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 13:19:49 by hoigag            #+#    #+#             */
-/*   Updated: 2023/11/04 16:00:04 by hoigag           ###   ########.fr       */
+/*   Updated: 2023/11/04 18:11:36 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include <cmath>
-#include <iomanip>      
+#include <iomanip>
+#include "Point.hpp"    
 #include "Fixed.hpp"
 
 int main( void ) {
-    Fixed a(2.0f);
-    Fixed b(5.0f);
-    Fixed c = b / a;
-    // std::cout << a.value << std::endl;
-    std::cout << c << std::endl;
-    // Fixed const b( Fixed( 5.05f ) * Fixed( 2 ) );
-    // std::cout << a << std::endl;
-    // std::cout << ++a << std::endl;
-    // std::cout << a << std::endl;
-    // std::cout << a++ << std::endl;
-    // std::cout << a << std::endl;
-    // std::cout << b << std::endl;
-    // std::cout << Fixed::max( a, b ) << std::endl;
+    Point a(30.0f, 50.0f);
+    Point b(50.0f, 10.0f);
+    Point c(10.0f, 10.0f);
+
+    Point point1(60.f, 30.0f);
+    Point point2(30.f, 30.0f);
+    Point point3(40.f, 15.25f);
+    Point point4(11.45f, 20.0f);
+    Point point5(15.45f, 20.1f);
+
+    std::cout << bsp(a, b, c, point1) << std::endl;
+    std::cout << bsp(a, b, c, point2) << std::endl;
+    std::cout << bsp(a, b, c, point3) << std::endl;
+    std::cout << bsp(a, b, c, point4) << std::endl;
+    std::cout << bsp(a, b, c, point5) << std::endl;
+    // std::cout << "area: " << "{" << getArea(a, b, c) << "}" << std::endl;
     return 0;
 }

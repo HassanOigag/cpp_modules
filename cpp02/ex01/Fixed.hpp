@@ -6,7 +6,7 @@
 /*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 12:59:12 by hoigag            #+#    #+#             */
-/*   Updated: 2023/11/02 14:56:45 by hoigag           ###   ########.fr       */
+/*   Updated: 2023/11/03 10:38:09 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,9 @@ class Fixed
 		int		toInt(void) const;
 	private:
 		int	value;
-		static const int nfBits;//number of fractional bits
-		
+		static const int nfBits;//number of fractional bits	
 };
 
 std::ostream& operator<<(std::ostream& stream, const Fixed& fixed);
-int power(int base, int power);
 	
 #endif

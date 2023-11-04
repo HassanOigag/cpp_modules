@@ -6,7 +6,7 @@
 /*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 13:03:40 by hoigag            #+#    #+#             */
-/*   Updated: 2023/11/02 13:52:42 by hoigag           ###   ########.fr       */
+/*   Updated: 2023/11/04 15:59:50 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,7 @@ Fixed::Fixed()
 Fixed::Fixed(const float number)
 {
     std::cout << "Float constructor called" << std::endl;
-    // this->value = roundf(number * power(2, Fixed::nfBits));
-    value = number * (1 << nfBits);
+    this->value = roundf(number * power(2, Fixed::nfBits));
 }
 
 Fixed::Fixed(const int number)
@@ -69,16 +68,9 @@ Fixed& Fixed::operator=(const Fixed& other)
     return *this;
 }
 
-Fixed Fixed::operator+(const Fixed& other)
-{
-    int i = this->value + other.value;
-    return Fixed(i);
-}
-
 float Fixed::toFloat(void) const
 {
-    // return this->value * power(2, Fixed::nfBits);
-    return ((float)value / (1 << nfBits)); 
+    return ((float)this->value / (power(2, Fixed::nfBits))); 
 }
 
 int Fixed::toInt(void) const
@@ -92,5 +84,115 @@ std::ostream& operator<<(std::ostream& stream, const Fixed& fixed)
     return stream;
 }
 
-const int Fixed::nfBits = 8;
+Fixed Fixed::operator+(const Fixed& other) const
+{
+    Fixed sum;
+    sum.setRawBits(this->value + other.value);
+    return sum;
+}
 
+Fixed Fixed::operator-(const Fixed& other) const
+{
+    Fixed sub;
+    sub.setRawBits(this->value - other.value);
+    return sub;
+}
+
+Fixed Fixed::operator*(const Fixed& other)const 
+{
+    float value = (this->value * other.value) / (float)power(2, Fixed::nfBits * 2);
+    return Fixed(value);
+}
+
+Fixed Fixed::operator/(const Fixed& other) const
+{
+    float value = (float)this->value / other.value;
+    return Fixed(value);
+}
+
+
+bool    Fixed::operator==(const Fixed& other) const
+{
+    return (this->value == other.value);
+}
+
+bool    Fixed::operator!=(const Fixed& other) const
+{
+    return !(this->value == other.value);
+}
+
+bool    Fixed::operator>(const Fixed& other) const
+{
+    return (this->value > other.value);
+}
+
+bool    Fixed::operator>=(const Fixed& other) const
+{
+    return (!(this->value < other.value));
+}
+    
+bool    Fixed::operator<(const Fixed& other) const
+{
+    return (this->value < other.value);
+}
+
+bool    Fixed::operator<=(const Fixed& other) const
+{
+    return !(this->value > other.value);
+}
+
+Fixed&	Fixed::min(Fixed& fixed1, Fixed& fixed2)
+{
+    if (fixed1 < fixed2)
+        return fixed1;
+    return fixed2;
+}
+
+Fixed&	Fixed::max(Fixed& fixed1, Fixed& fixed2)
+{
+    if (fixed1 > fixed2)
+        return fixed1;
+    return fixed2;
+}
+
+const Fixed& Fixed::min(const Fixed& fixed1, const Fixed& fixed2)
+{
+    if (fixed1 < fixed2)
+        return fixed1;
+    return fixed2;
+}
+
+const Fixed& Fixed::max(const Fixed& fixed1, const Fixed& fixed2)
+{
+    if (fixed1 > fixed2)
+        return fixed1;
+    return fixed2;
+}
+
+Fixed& Fixed::operator++()
+{
+    this->value += 1;
+    return *this;
+}
+
+Fixed Fixed::operator++(int)
+{
+    Fixed copy = *this;
+    this->operator++();
+    return copy;
+}
+
+Fixed& Fixed::operator--()
+{
+    this->value -= 1;
+    return *this;
+}
+
+Fixed Fixed::operator--(int)
+{
+    Fixed copy = *this;
+    this->operator--();
+    return copy;
+}
+
+const int Fixed::nfBits = 8;
