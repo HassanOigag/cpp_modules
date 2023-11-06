@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   ScavTrap.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/05 12:41:40 by hoigag            #+#    #+#             */
-/*   Updated: 2023/11/06 11:28:27 by hoigag           ###   ########.fr       */
+/*   Created: 2023/11/06 11:06:01 by hoigag            #+#    #+#             */
+/*   Updated: 2023/11/06 17:15:00 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <iostream>
+#ifndef SCAVTRAP_HPP
+#define SCAVTRAP_HPP
+
+#include <string>
 #include "ClapTrap.hpp"
-int main()
+
+class ScavTrap : public ClapTrap
 {
-	ClapTrap attacker("hassan");
-	attacker.setAttackDamage(2);
+	public:
+		ScavTrap(void);
+		ScavTrap(std::string name);
+		~ScavTrap(void);
+		ScavTrap(const ScavTrap& other);
+		void	attack(const std::string& target);
+		ScavTrap& operator=(const ScavTrap& other);
+		void guardGate(void);
+};
 
-	ClapTrap victim("amine");
-	std::cout << victim << std::endl;
-
-	attacker.attack(victim.getName());
-	victim.takeDamage(attacker.getAttackDamage());
-	std::cout << victim << std::endl;
-
-	victim.beRepaired(10);
-	std::cout << victim << std::endl;
-
-	return (0);
-}
+#endif
