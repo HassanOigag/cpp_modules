@@ -6,7 +6,7 @@
 /*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 12:14:49 by hoigag            #+#    #+#             */
-/*   Updated: 2023/11/06 17:27:14 by hoigag           ###   ########.fr       */
+/*   Updated: 2023/11/07 13:07:51 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,23 +25,23 @@ class ClapTrap
 		ClapTrap& operator=(const ClapTrap& other);
 
 		std::string	getName(void) const;
-		int	getHitPoints(void) const;
-		int getEnergyPoints(void) const;
-		int getAttackDamage(void) const;
+		int			getHitPoints(void) const;
+		int			getEnergyPoints(void) const;
+		int			getAttackDamage(void) const;
 
-		void setName(std::string name);
-		void setHitpoints(int hitPoints);
-		void setEnergyPoints(int energyPoints);
-		void setAttackDamage(int attackDamage);
+		void		setName(std::string name);
+		void 		setHitpoints(int hitPoints);
+		void 		setEnergyPoints(int energyPoints);
+		void 		setAttackDamage(int attackDamage);
 
-		void	attack(const std::string& target);
-		void	takeDamage(unsigned int amount);
-		void	beRepaired(unsigned int amount);
+		void		attack(const std::string& target);
+		void		takeDamage(unsigned int amount);
+		void		beRepaired(unsigned int amount);
 	protected:
 		std::string name;
-		int	hitPoints;
-		int energyPoints;
-		int attackDamage;
+		int			hitPoints;
+		int 		energyPoints;
+		int 		attackDamage;
 };
 
 std::ostream&	operator<<(std::ostream& stream, const ClapTrap& ct);
