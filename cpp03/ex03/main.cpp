@@ -6,7 +6,7 @@
 /*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 12:41:40 by hoigag            #+#    #+#             */
-/*   Updated: 2023/11/08 17:45:14 by hoigag           ###   ########.fr       */
+/*   Updated: 2023/11/09 16:49:32 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,21 @@ void custom_print(const ScavTrap& attacker, const FragTrap& victim)
 
 int main()
 {
-	// ScavTrap amine("amine");
+	ScavTrap amine("amine");
+	// std::cout << amine;
 	// FragTrap frag("hamza");
+	// std::cout << frag;
 	// ClapTrap f = FragTrap("hassan");
-	// f.attack("amine");
-	DiamondTrap dt("hassan");
-	std::cout << dt;
+	ClapTrap *f = &amine;
+	f->attack("amine");
+	// DiamondTrap dt("hassan");
+	// std::cout << dt << std::endl;
+	// dt.whoAmI();
+	// dt.attack("amine");
+	// std::cout << dt.ClapTrap::getName() << std::endl;
+	// std::cout << "name: " << dt.ClapTrap::getName() << std::endl;
+	// std::cout << "name: " << dt.getName() << std::endl;
+	// std::cout << dt.getName() << std::endl;
 	// FragTrap hamza;
 
 	// hamza = frag;

@@ -6,7 +6,7 @@
 /*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 19:34:39 by hoigag            #+#    #+#             */
-/*   Updated: 2023/11/08 17:39:26 by hoigag           ###   ########.fr       */
+/*   Updated: 2023/11/09 12:48:47 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ class FragTrap : virtual public ClapTrap
 		FragTrap(std::string name);
 		~FragTrap();
 		FragTrap(const FragTrap& other);
+		
 		void attack(const std::string& target);
 		FragTrap& operator=(const FragTrap& other);
 		void highFivesGuys(void);

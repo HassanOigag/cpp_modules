@@ -6,12 +6,13 @@
 /*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 12:30:32 by hoigag            #+#    #+#             */
-/*   Updated: 2023/11/06 17:41:12 by hoigag           ###   ########.fr       */
+/*   Updated: 2023/11/09 13:27:15 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ClapTrap.hpp"
 #include <iostream>
+
 ClapTrap::ClapTrap()
 {
     std::cout << "ClapTrap default constructor called" << std::endl; 
@@ -56,7 +57,7 @@ std::ostream&	operator<<(std::ostream& stream, const ClapTrap& ct)
     stream << "name          : " << ct.getName() << std::endl;
     stream << "hit points    : " << ct.getHitPoints() << std::endl;
     stream << "energy points : " << ct.getEnergyPoints() << std::endl;
-    stream << "attack damge  : " << ct.getAttackDamage() << std::endl;
+    stream << "attack damage : " << ct.getAttackDamage() << std::endl;
     return stream;
 }
 
