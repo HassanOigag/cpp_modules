@@ -6,7 +6,7 @@
 /*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 15:39:24 by hoigag            #+#    #+#             */
-/*   Updated: 2023/11/09 15:02:21 by hoigag           ###   ########.fr       */
+/*   Updated: 2023/11/10 13:15:01 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ class DiamondTrap : public ScavTrap, public FragTrap
 		DiamondTrap& operator=(const DiamondTrap& other);
 		void whoAmI(void);
 		void attack(const std::string& target);
-;	private:
+	private:
 		std::string name;
 };
 

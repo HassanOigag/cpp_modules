@@ -6,7 +6,7 @@
 /*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 12:30:32 by hoigag            #+#    #+#             */
-/*   Updated: 2023/11/06 11:30:52 by hoigag           ###   ########.fr       */
+/*   Updated: 2023/11/10 16:58:43 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ ClapTrap::ClapTrap()
 {
     std::cout << "ClapTrap default constructor called" << std::endl; 
     this->name = "";
-    this->hitPoints = 0;
-    this->energyPoints = 0;
+    this->hitPoints = 10;
+    this->energyPoints = 10;
     this->attackDamage = 0;
 }
 
@@ -56,14 +56,17 @@ std::ostream&	operator<<(std::ostream& stream, const ClapTrap& ct)
     stream << "name          : " << ct.getName() << std::endl;
     stream << "hit points    : " << ct.getHitPoints() << std::endl;
     stream << "energy points : " << ct.getEnergyPoints() << std::endl;
-    stream << "attack damge  : " << ct.getAttackDamage() << std::endl;
+    stream << "attack damage : " << ct.getAttackDamage() << std::endl;
     return stream;
 }
 
 void	ClapTrap::attack(const std::string& target)
 {
-    if (this->hitPoints == 0 || this->energyPoints == 0)
+    if (this->hitPoints <= 0 || this->energyPoints <= 0)
+    {
+        std::cout << "ClapTrap " << this->name << " can not attack, inusfficient hit points or energy points" << std::endl;
         return;
+    }
     this->energyPoints -= 1;
     std::cout << "ClapTrap " << this->name << " attacks " << target << ", causing " << this->attackDamage << " points of damage!" << std::endl;
 }
@@ -71,7 +74,10 @@ void	ClapTrap::attack(const std::string& target)
 void    ClapTrap::takeDamage(unsigned int amount)
 {
     if (this->hitPoints == 0 || this->energyPoints == 0)
+    {
+        std::cout << "ClapTrap " << this->name << " can not take damage, inusfficient hit points or energy points" << std::endl;
         return;
+    }
     this->hitPoints -= amount;
     std::cout << "ClapTrap " << this->name << " took a hit, lost "<< amount << " hit points!" << std::endl;   
 }
@@ -79,7 +85,10 @@ void    ClapTrap::takeDamage(unsigned int amount)
 void	ClapTrap::beRepaired(unsigned int amount)
 {
     if (this->hitPoints == 0 || this->energyPoints == 0)
+    {
+        std::cout << "ClapTrap " << this->name << " can not be repaired, inusfficient hit points or energy points" << std::endl;
         return;
+    }
     this->energyPoints -= 1;
     this->hitPoints += amount;
     std::cout << "ClapTrap " << this->name << " gained " << amount << " hit points back!" << std::endl;

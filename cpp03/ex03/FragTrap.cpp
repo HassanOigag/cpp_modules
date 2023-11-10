@@ -6,7 +6,7 @@
 /*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 19:38:59 by hoigag            #+#    #+#             */
-/*   Updated: 2023/11/09 14:38:07 by hoigag           ###   ########.fr       */
+/*   Updated: 2023/11/10 16:50:18 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	FragTrap::attack(const std::string& target)
 {
     if (this->hitPoints == 0 || this->energyPoints == 0)
     {
-        std::cout << "FragTrap can not attack, inusfficient hit points or energy points" << std::endl;
+        std::cout << "FragTrap " << this->name << " can not attack, inusfficient hit points or energy points" << std::endl;
         return;
     }
     this->energyPoints -= 1;

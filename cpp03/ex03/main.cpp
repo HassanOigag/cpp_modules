@@ -6,7 +6,7 @@
 /*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 12:41:40 by hoigag            #+#    #+#             */
-/*   Updated: 2023/11/09 16:49:32 by hoigag           ###   ########.fr       */
+/*   Updated: 2023/11/10 18:31:12 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include "DiamondTrap.hpp"
 #include <iomanip> 
 
-void custom_print(const ScavTrap& attacker, const FragTrap& victim)
+void custom_print(const ClapTrap& attacker, const ClapTrap& victim)
 {
 	std::cout << std::endl;
 	std::cout << std::left << std::setw(15) << "Name"
@@ -39,59 +39,23 @@ void custom_print(const ScavTrap& attacker, const FragTrap& victim)
 
 int main()
 {
-	ScavTrap amine("amine");
-	// std::cout << amine;
-	// FragTrap frag("hamza");
-	// std::cout << frag;
-	// ClapTrap f = FragTrap("hassan");
-	ClapTrap *f = &amine;
-	f->attack("amine");
-	// DiamondTrap dt("hassan");
-	// std::cout << dt << std::endl;
-	// dt.whoAmI();
-	// dt.attack("amine");
-	// std::cout << dt.ClapTrap::getName() << std::endl;
-	// std::cout << "name: " << dt.ClapTrap::getName() << std::endl;
-	// std::cout << "name: " << dt.getName() << std::endl;
-	// std::cout << dt.getName() << std::endl;
-	// FragTrap hamza;
+	DiamondTrap hamza("hamza");
+	DiamondTrap amine("amine");
+	
+	DiamondTrap hassan = amine;
+	
+	std::cout << hassan;
+	
+	custom_print(hamza, amine);
+	
+	hamza.attack("amine");
+	amine.takeDamage(hamza.getAttackDamage());
+	custom_print(hamza, amine);
 
-	// hamza = frag;
 	
-	// custom_print(amine, hamza);
+	hamza.whoAmI();
+	amine.whoAmI();
+	std::cout << std::endl;
 
-	// amine.attack(hamza.getName());
-	// hamza.takeDamage(amine.getAttackDamage());
-	
-	// custom_print(amine, hamza);
-
-	// amine.attack(hamza.getName());
-	// hamza.takeDamage(amine.getAttackDamage());
-	
-	// custom_print(amine, hamza);
-
-	// amine.attack(hamza.getName());
-	// hamza.takeDamage(amine.getAttackDamage());
-	
-	// custom_print(amine, hamza);
-	
-	// amine.attack(hamza.getName());
-	// hamza.takeDamage(amine.getAttackDamage());
-	
-	// custom_print(amine, hamza);
-	
-	// amine.attack(hamza.getName());
-	// hamza.takeDamage(amine.getAttackDamage());
-	
-	// custom_print(amine, hamza);
-	
-	// hamza.attack(amine.getName());
-	// if (hamza.getHitPoints() > 0 && hamza.getEnergyPoints() > 0)
-	// 	amine.takeDamage(hamza.getAttackDamage());
-	
-	// custom_print(amine, hamza);
-
-	// amine.guardGate();
-	// hamza.highFivesGuys();
 	return (0);
 }

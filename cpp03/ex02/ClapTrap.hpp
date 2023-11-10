@@ -6,7 +6,7 @@
 /*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 12:14:49 by hoigag            #+#    #+#             */
-/*   Updated: 2023/11/07 13:07:51 by hoigag           ###   ########.fr       */
+/*   Updated: 2023/11/10 17:11:35 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ class ClapTrap
 		void 		setEnergyPoints(int energyPoints);
 		void 		setAttackDamage(int attackDamage);
 
-		void		attack(const std::string& target);
+		virtual void		attack(const std::string& target);
 		void		takeDamage(unsigned int amount);
 		void		beRepaired(unsigned int amount);
 	protected:

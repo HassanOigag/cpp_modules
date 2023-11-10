@@ -6,7 +6,7 @@
 /*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 12:30:32 by hoigag            #+#    #+#             */
-/*   Updated: 2023/11/09 13:27:15 by hoigag           ###   ########.fr       */
+/*   Updated: 2023/11/10 16:50:54 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,11 @@ std::ostream&	operator<<(std::ostream& stream, const ClapTrap& ct)
 void	ClapTrap::attack(const std::string& target)
 {
     if (this->hitPoints == 0 || this->energyPoints == 0)
+    {
+        std::cout << "ClapTrap " << this->name << " can not attack, inusfficient hit points or energy points" << std::endl;
+        this->energyPoints -= 1;
+    }
         return;
-    this->energyPoints -= 1;
     std::cout << "ClapTrap " << this->name << " attacks " << target << ", causing " << this->attackDamage << " points of damage!" << std::endl;
 }
 

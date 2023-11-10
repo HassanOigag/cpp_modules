@@ -6,7 +6,7 @@
 /*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 12:41:40 by hoigag            #+#    #+#             */
-/*   Updated: 2023/11/06 18:33:00 by hoigag           ###   ########.fr       */
+/*   Updated: 2023/11/10 10:31:55 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,7 @@ void custom_print(const ScavTrap& attacker, const ScavTrap& victim)
 int main()
 {
 	ScavTrap amine("amine");
-	ScavTrap scav("hamza");
-	ScavTrap hamza;
-
-	hamza = scav;
+	ScavTrap hamza("hamza");
 	
 	custom_print(amine, hamza);
 
@@ -71,8 +68,6 @@ int main()
 	custom_print(amine, hamza);
 	
 	hamza.attack(amine.getName());
-	if (hamza.getHitPoints() > 0 && hamza.getEnergyPoints() > 0)
-		amine.takeDamage(hamza.getAttackDamage());
 	
 	custom_print(amine, hamza);
 
