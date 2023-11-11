@@ -6,7 +6,7 @@
 /*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 12:41:40 by hoigag            #+#    #+#             */
-/*   Updated: 2023/11/10 18:31:12 by hoigag           ###   ########.fr       */
+/*   Updated: 2023/11/11 09:05:53 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,12 @@ int main()
 	DiamondTrap hamza("hamza");
 	DiamondTrap amine("amine");
 	
-	DiamondTrap hassan = amine;
-	
-	std::cout << hassan;
 	
 	custom_print(hamza, amine);
 	
 	hamza.attack("amine");
 	amine.takeDamage(hamza.getAttackDamage());
 	custom_print(hamza, amine);
-
 	
 	hamza.whoAmI();
 	amine.whoAmI();
