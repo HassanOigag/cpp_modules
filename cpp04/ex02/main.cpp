@@ -6,7 +6,7 @@
 /*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 13:04:23 by hoigag            #+#    #+#             */
-/*   Updated: 2023/11/13 16:49:30 by hoigag           ###   ########.fr       */
+/*   Updated: 2023/11/13 16:50:43 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,11 @@
 #include "Animal.hpp"
 #include "Cat.hpp"
 #include "Dog.hpp"
-#include "WrongAnimal.hpp"
-#include "WrongCat.hpp"
 #include "Brain.hpp"
 
 int main()
 {
-	const int n = 10;
+	const int n = 4;
 	const int half = n / 2;
 	Animal** animals = new Animal*[n];
 	if (!animals)
