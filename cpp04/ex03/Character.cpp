@@ -6,7 +6,7 @@
 /*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 12:54:37 by hoigag            #+#    #+#             */
-/*   Updated: 2023/11/15 17:52:12 by hoigag           ###   ########.fr       */
+/*   Updated: 2023/11/15 17:58:19 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,5 +92,10 @@ void Character::use(int idx, ICharacter& target)
 void Character::printSlots()
 {
     for (int i = 0; i < this->index; i++)
-        std::cout << this->slots[i]->getType() << std::endl;
+    {
+        if (!this->slots[i])
+            std::cout << "NULL" << std::endl;
+        else
+            std::cout << this->slots[i]->getType() << std::endl;
+    }
 }

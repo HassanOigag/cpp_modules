@@ -6,7 +6,7 @@
 /*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 11:18:20 by hoigag            #+#    #+#             */
-/*   Updated: 2023/11/15 17:54:20 by hoigag           ###   ########.fr       */
+/*   Updated: 2023/11/15 17:58:26 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,9 @@ int main()
 	c.equip(new Ice());
 	c.equip(new Cure());
 	c.equip(new Ice());
-	c.equip(new Ice());
-	c.equip(new Ice());
-	c.equip(new Ice());
-	c.equip(new Ice());
-	c.equip(new Ice());
-	c.equip(new Ice());
+	c.unequip(0);
+	c.unequip(1);
+	// c.unequip(2);
 
 	c.printSlots();
 	
