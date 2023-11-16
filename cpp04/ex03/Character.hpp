@@ -6,7 +6,7 @@
 /*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 12:48:41 by hoigag            #+#    #+#             */
-/*   Updated: 2023/11/15 17:55:16 by hoigag           ###   ########.fr       */
+/*   Updated: 2023/11/16 17:02:02 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 #define CHARACTER_HPP
 #include "AMateria.hpp"
 #include "LinkedList.hpp"
-#define SIZE 3
+#include "ICharacter.hpp"
+#define SIZE 4
 
-class Character
+class Character : public ICharacter
 {
 	public:
 		Character();
@@ -29,12 +30,16 @@ class Character
 		void equip(AMateria* m);
 		void unequip(int idx);
 		void use(int idx, ICharacter& target);
-		void printSlots();
+		void printInventory();
+		void printGarbageCollector();
+		void emptyInventory();
 	private:
-		AMateria** slots;
+		AMateria** inventory;
 		std::string name;
 		LinkedList garbageCollector;
-		int index;
+		int indexOfEmptySlot;
 };
+
+
 
 #endif

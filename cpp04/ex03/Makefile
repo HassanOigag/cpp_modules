@@ -2,9 +2,9 @@ CXX = c++
 
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98 #-fsanitize=address -g
 
-NAME = t3nkich
+NAME = amateria
 
-SRCS = AMateria.cpp Cure.cpp Ice.cpp main.cpp LinkedList.cpp Character.cpp
+SRCS = AMateria.cpp Cure.cpp Ice.cpp main.cpp LinkedList.cpp Character.cpp MateriaSource.cpp
 
 HEADERS = AMateria.hpp Cure.hpp Ice.hpp ICharacter.hpp
 

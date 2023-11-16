@@ -6,7 +6,7 @@
 /*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 15:31:24 by hoigag            #+#    #+#             */
-/*   Updated: 2023/11/15 16:37:19 by hoigag           ###   ########.fr       */
+/*   Updated: 2023/11/16 16:05:13 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ class LinkedList
 		~LinkedList();
 		void addFirst(AMateria *m);
 		void purge();
-		// void setHead(node *newHead);
+		LinkedList getListCopy() const;
 		node *getHead(void);
 		LinkedList(const LinkedList& other);
 		LinkedList& operator=(const LinkedList& other);

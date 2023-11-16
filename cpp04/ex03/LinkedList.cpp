@@ -6,7 +6,7 @@
 /*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 15:34:15 by hoigag            #+#    #+#             */
-/*   Updated: 2023/11/15 16:54:20 by hoigag           ###   ########.fr       */
+/*   Updated: 2023/11/16 16:05:21 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void LinkedList::purge()
     {
         toDelete = tmp;
         tmp = tmp->next;
+        delete toDelete->materia;
         delete toDelete;
     }
     this->head = NULL;
@@ -51,29 +52,62 @@ void LinkedList::purge()
 
 LinkedList::~LinkedList()
 {
-    std::cout << "ls destructor" <<  std::endl;
     this->purge();
 }
 
 LinkedList::LinkedList(const LinkedList& other)
 {
+    
+    std::cout << "copy assignement called" << std::endl;
     node *tmp = other.head;
+    this->head = NULL;
     while (tmp)
     {
-        this->addFirst(tmp->materia);
+        this->addFirst(tmp->materia->clone());
         tmp = tmp->next;
     }
 }
 
 LinkedList& LinkedList::operator=(const LinkedList& other)
 {
+    std::cout << "copy assignement called" << std::endl;
     this->purge();
     node *tmp = other.head;
     while (tmp)
     {
-        this->addFirst(tmp->materia);
+        this->addFirst(tmp->materia->clone());
         tmp = tmp->next;
     }
     return *this;
 }
 
+std::ostream& operator<<(std::ostream& stream, LinkedList& ls)
+{
+    node *tmp = ls.getHead();
+    if (!tmp)
+    {
+        stream << "garbage collector is empty" << std::endl;
+        return stream;   
+    }
+    stream << "head -> " ;
+    while (tmp)
+    {
+        stream << tmp->materia->getType() << " -> ";
+        tmp = tmp->next;
+    }
+    stream << "NULL";
+    stream << std::endl;
+    return stream;
+}
+
+LinkedList LinkedList::getListCopy() const
+{
+    LinkedList copy;
+    node *tmp = this->head;
+    while (tmp)
+    {
+       copy.addFirst(tmp->materia->clone());
+       tmp = tmp->next; 
+    }
+    return copy;
+}

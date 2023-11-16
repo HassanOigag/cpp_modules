@@ -6,7 +6,7 @@
 /*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 11:18:20 by hoigag            #+#    #+#             */
-/*   Updated: 2023/11/15 17:58:26 by hoigag           ###   ########.fr       */
+/*   Updated: 2023/11/16 17:23:00 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,31 +15,24 @@
 #include "Cure.hpp"
 #include "Ice.hpp"
 #include "Character.hpp"
+#include "MateriaSource.hpp"
 
 int main()
 {
-	Character c("hassan");
-	c.equip(new Ice());
-	c.equip(new Cure());
-	c.equip(new Ice());
-	c.unequip(0);
-	c.unequip(1);
-	// c.unequip(2);
-
-	c.printSlots();
-	
-	// LinkedList floor;
-	// floor.addFirst(new Ice()); 
-	// floor.addFirst(new Cure());
-	// floor.addFirst(new Ice());
-	// node *tmp = floor.getHead();
-	// while (tmp)
-	// {
-	// 	std::cout << tmp->materia->getType() << std::endl;;
-	// 	tmp = tmp->next;
-	// }
-	// // std::cout << m;aterial->use() << std::endl;
-	// system("leaks -q t3nkich");
-	// while (true);
+	IMateriaSource* src = new MateriaSource();
+	src->learnMateria(new Ice());
+	src->learnMateria(new Cure());
+	ICharacter* me = new Character("me");
+	AMateria* tmp;
+	tmp = src->createMateria("ice");
+	me->equip(tmp);
+	tmp = src->createMateria("cure");
+	me->equip(tmp);
+	ICharacter* bob = new Character("bob");
+	me->use(0, *bob);
+	me->use(1, *bob);
+	delete bob;
+	delete me;
+	delete src;
 	return (0);
 }

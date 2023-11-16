@@ -6,7 +6,7 @@
 /*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 18:21:21 by hoigag            #+#    #+#             */
-/*   Updated: 2023/11/15 11:28:16 by hoigag           ###   ########.fr       */
+/*   Updated: 2023/11/16 17:06:22 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ class AMateria
 		virtual ~AMateria();
 		AMateria(const AMateria& other);
 		std::string const & getType() const;
-		AMateria& operator=(const AMateria& other);
+		AMateria& operator=(const AMateria& __unused other);
 		virtual AMateria* clone() const = 0;
 		virtual void use(ICharacter& target);
 	protected:

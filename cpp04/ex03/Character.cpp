@@ -6,7 +6,7 @@
 /*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 12:54:37 by hoigag            #+#    #+#             */
-/*   Updated: 2023/11/15 17:58:19 by hoigag           ###   ########.fr       */
+/*   Updated: 2023/11/16 17:17:18 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,49 +15,56 @@
 Character::Character()
 {
     this->name = "";
-    this->slots = new AMateria*[SIZE];
+    this->inventory = new AMateria*[SIZE];
     for (int i = 0; i < SIZE; i++)
-        this->slots[i] = NULL;
-    index = 0;
+        this->inventory[i] = NULL;
+    this->indexOfEmptySlot = 0;
 }
 Character::Character(std::string name)
 {
     this->name = name;
-    index = 0;
-    this->slots = new AMateria*[SIZE];
+    this->indexOfEmptySlot = 0;
+    this->inventory = new AMateria*[SIZE];
     for (int i = 0; i < SIZE; i++)
-        this->slots[i] = NULL;
+        this->inventory[i] = NULL;
 }
 
 Character::~Character()
 {
-    for (int i = 0; i < SIZE; i++)
-        delete this->slots[i];
-    delete[] this->slots;
+    this->emptyInventory();
+    this->garbageCollector.purge();
 }
 
 Character::Character(const Character& other)
 {
-    this->index = other.index;
+    this->indexOfEmptySlot = other.indexOfEmptySlot;
     this->name = other.name;
-    this->garbageCollector = other.garbageCollector;
-    this->slots = new AMateria*[SIZE];
+    this->garbageCollector = other.garbageCollector.getListCopy();
+    this->inventory = new AMateria*[SIZE];
     for (int i = 0; i < SIZE; i++)
-        this->slots[i] = other.slots[i]->clone();
+    {
+        if (other.inventory[i])
+            this->inventory[i] = other.inventory[i]->clone();
+        else
+            this->inventory[i] = NULL;
+    }
 }
 
 Character& Character::operator=(const Character& other)
 {
-    for (int i = 0; i < SIZE; i++)
-        delete other.slots[i];
-    delete[] other.slots;
-    
-    this->index = other.index;
-    this->garbageCollector = other.garbageCollector;
+    this->emptyInventory();
+    this->garbageCollector.purge();
+    this->indexOfEmptySlot = other.indexOfEmptySlot;
+    this->garbageCollector = other.garbageCollector.getListCopy();
     this->name = other.name;
-    this->slots = new AMateria*[SIZE];
+    this->inventory = new AMateria*[SIZE];
     for (int i = 0; i < SIZE; i++)
-        this->slots[i] = other.slots[i]->clone();
+    {
+        if (other.inventory[i])
+            this->inventory[i] = other.inventory[i]->clone();
+        else
+            this->inventory[i] = NULL;
+    }
     return *this;
 }
 
@@ -68,34 +75,58 @@ std::string const & Character::getName() const
 
 void Character::equip(AMateria* m)
 {
-    if (this->index < 0 || this->index >= SIZE)
-        return;
-    this->slots[this->index] = m;
-    this->index++;
+    if (this->indexOfEmptySlot < 0
+        || this->indexOfEmptySlot >= SIZE
+        || this->inventory[this->indexOfEmptySlot])
+        {
+            this->garbageCollector.addFirst(m);
+            return;
+        }
+        this->inventory[this->indexOfEmptySlot] = m;
+        this->indexOfEmptySlot++;  
 }
 
 void Character::unequip(int idx)
 {
-    if (idx < 0 || idx >= SIZE || !this->slots[idx])
+    if (idx < 0 || idx >= SIZE || !this->inventory[idx])
         return;
-    this->garbageCollector.addFirst(this->slots[idx]);
-    this->slots[idx] = NULL;
+    this->garbageCollector.addFirst(this->inventory[idx]);
+    this->inventory[idx] = NULL;
+    this->indexOfEmptySlot = idx;
 }
 
 void Character::use(int idx, ICharacter& target)
 {
     if (idx < 0 || idx >= SIZE)
         return;
-    this->slots[idx]->use(target);
+    if (inventory[idx])
+        this->inventory[idx]->use(target);
 }
 
-void Character::printSlots()
+void Character::printInventory()
 {
-    for (int i = 0; i < this->index; i++)
+    std::cout << "-------------------------------\n";
+    for (int i = 0; i < SIZE; i++)
     {
-        if (!this->slots[i])
-            std::cout << "NULL" << std::endl;
+        if (!this->inventory[i])
+            std::cout << "| NULL |";
         else
-            std::cout << this->slots[i]->getType() << std::endl;
+            std::cout << "| " << this->inventory[i]->getType() << " |";
     }
+    std::cout << "\n-------------------------------\n";
+}
+
+void Character::printGarbageCollector()
+{
+    std::cout << this->garbageCollector << std::endl;
+}
+
+void Character::emptyInventory()
+{
+    for (int i = 0; i < SIZE; i++)
+    {
+        if (this->inventory[i])
+            delete this->inventory[i];
+    }
+    delete[] this->inventory;
 }
