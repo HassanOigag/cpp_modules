@@ -4,7 +4,7 @@ CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
 NAME = bureaucrat
 
-SRCS = AForm.cpp Bureaucrat.cpp main.cpp ShrubberyCreationForm.cpp
+SRCS = AForm.cpp Bureaucrat.cpp main.cpp ShrubberyCreationForm.cpp RobotomyRequestForm.cpp PresidentialPardonForm.cpp
 
 HEADERS = AForm.hpp Bureaucrat.hpp ShrubberyCreationForm.hpp
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Cat.cpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoigag <student.1337.ma>                   +#+  +:+       +#+        */
+/*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 13:13:37 by hoigag            #+#    #+#             */
-/*   Updated: 2023/11/12 13:44:22 by hoigag           ###   ########.fr       */
+/*   Updated: 2023/11/16 17:27:07 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ Cat::~Cat()
     std::cout << "Cat destructor called" << std::endl;
 }
 
-Cat::Cat(const Cat& other) : Animal()
+Cat::Cat(const Cat& other)
 {
     *this = other;
 }

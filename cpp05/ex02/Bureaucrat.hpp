@@ -6,7 +6,7 @@
 /*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 15:21:25 by hoigag            #+#    #+#             */
-/*   Updated: 2023/11/19 13:07:59 by hoigag           ###   ########.fr       */
+/*   Updated: 2023/11/20 18:59:40 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ class Bureaucrat
 		void increment();
 		void decrement();
 		void signForm(const AForm& form) const;
+		void executeForm(AForm const & form);
 	private:
 		const std::string name;
 		int grade;

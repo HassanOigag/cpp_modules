@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Dog.cpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoigag <student.1337.ma>                   +#+  +:+       +#+        */
+/*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 13:28:03 by hoigag            #+#    #+#             */
-/*   Updated: 2023/11/12 13:40:48 by hoigag           ###   ########.fr       */
+/*   Updated: 2023/11/16 17:26:58 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ Dog::~Dog()
     std::cout << "Dog destructor called" << std::endl;
 }
 
-Dog::Dog(const Dog& other) : Animal()
+Dog::Dog(const Dog& other)
 {
     *this = other;
 }
