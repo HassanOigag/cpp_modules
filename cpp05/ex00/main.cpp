@@ -6,7 +6,7 @@
 /*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 15:29:40 by hoigag            #+#    #+#             */
-/*   Updated: 2023/11/18 17:45:21 by hoigag           ###   ########.fr       */
+/*   Updated: 2023/11/21 15:58:30 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,12 @@ int main()
 {
 	try
 	{
-		Bureaucrat hassan("hassan", 149);
-		hassan.decrement();
+		Bureaucrat hassan("hassan", 3);
+		std::cout << hassan;
+		std::cout << "increment\n";
+		hassan.increment();
+		std::cout << hassan;
+		std::cout << "decrement\n";
 		hassan.decrement();
 		std::cout << hassan;
 	}

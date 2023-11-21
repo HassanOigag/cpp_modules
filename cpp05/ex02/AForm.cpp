@@ -6,11 +6,12 @@
 /*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 10:13:50 by hoigag            #+#    #+#             */
-/*   Updated: 2023/11/19 15:01:30 by hoigag           ###   ########.fr       */
+/*   Updated: 2023/11/21 10:54:20 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "AForm.hpp"
+#include <iomanip>
 
 AForm::AForm() : name(""), signGrade(1), executeGrade(1)
 {
@@ -80,11 +81,23 @@ void AForm::beSigned(const Bureaucrat& worker)
 
 std::ostream& operator<<(std::ostream& stream, const AForm& form)
 {
+    int columnSize = 20;
+    int columns = 4;
     std::string isFormSigned = form.isFormSigned() ? "signed" : "not signed";
-    stream << "form name     : " << form.getName() << std::endl
-           << "Sign grade    : " << form.getSignGrade() << std::endl
-           << "Execute grade : " << form.getExecuteGrade() << std::endl
-           << "is signed     : " << isFormSigned << std::endl;
+    std::string border = " ";
+    for (int i = 0; i < (columns * columnSize) + 11; i++)
+        border += "-";
+    stream <<  border << std::endl;
+    stream << "| " << std::left << std::setw(columnSize) << "Form Name" << " | "
+           << std::setw(columnSize) << "Sign Grade" << " | "
+           << std::setw(columnSize) << "Execute Grade" << " | "
+           << std::setw(columnSize) << "Status" << " | " << std::endl;
+    stream << border << std::endl;
+    stream << "| " << std::setw(columnSize) << form.getName() << " | "
+           << std::setw(columnSize) << form.getSignGrade() << " | "
+           << std::setw(columnSize) << form.getExecuteGrade() << " | "
+           << std::setw(columnSize) << isFormSigned << " | " << std::endl;
+    stream << border << std::endl;
     return stream;
 }
 

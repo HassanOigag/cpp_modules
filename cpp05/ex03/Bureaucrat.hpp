@@ -6,7 +6,7 @@
 /*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 15:21:25 by hoigag            #+#    #+#             */
-/*   Updated: 2023/11/21 15:12:40 by hoigag           ###   ########.fr       */
+/*   Updated: 2023/11/20 18:59:40 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ class AForm;
 class Bureaucrat
 {
 	public:
-		
+
 		class GradeTooHighException : public std::exception
 		{
 			public:

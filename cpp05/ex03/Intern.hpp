@@ -1,34 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   Intern.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/18 15:29:40 by hoigag            #+#    #+#             */
-/*   Updated: 2023/11/21 16:10:07 by hoigag           ###   ########.fr       */
+/*   Created: 2023/11/21 11:01:45 by hoigag            #+#    #+#             */
+/*   Updated: 2023/11/21 17:02:51 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <iostream>
-#include "Bureaucrat.hpp"
-#include "Form.hpp"
+#ifndef INTERN_HPP
+#define INTERN_HPP
+#include <string>
+#include "AForm.hpp"
 
-int main()
+class Intern
 {
-	try
-	{
-		Form form("extrait", 5, 20);
-		std::cout << form;
-		Bureaucrat hassan("hassan", 6);
-		std::cout << hassan;
-		form.beSigned(hassan);
-		hassan.signForm(form);
-		std::cout << form;
-	}
-	catch(const std::exception& e)
-	{
-		std::cerr << e.what() << std::endl;
-	}
-	return (0);
-}
+	public:
+		Intern();
+		~Intern();
+		Intern(const Intern& __unused other);
+		Intern& operator=(const Intern& __unused other);
+		AForm *makeForm(std::string formName, std::string target);
+};
+
+typedef  AForm* (*createForm)(std::string);
+
+#endif

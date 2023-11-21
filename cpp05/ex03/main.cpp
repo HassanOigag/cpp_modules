@@ -6,29 +6,39 @@
 /*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 15:29:40 by hoigag            #+#    #+#             */
-/*   Updated: 2023/11/21 16:10:07 by hoigag           ###   ########.fr       */
+/*   Updated: 2023/11/21 17:03:16 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include "Bureaucrat.hpp"
-#include "Form.hpp"
+#include "AForm.hpp"
+#include "Intern.hpp"
 
 int main()
 {
+	AForm *form = NULL;
 	try
 	{
-		Form form("extrait", 5, 20);
-		std::cout << form;
-		Bureaucrat hassan("hassan", 6);
+		Intern amine;
+		Bureaucrat hassan("hassan", 1);
+		form = amine.makeForm("robotomy request", "bender");
+		if (!form)
+			return 1;
+		std::cout << *form;
 		std::cout << hassan;
-		form.beSigned(hassan);
-		hassan.signForm(form);
-		std::cout << form;
+		form->beSigned(hassan);
+		hassan.signForm(*form);
+		std::cout << *form;
+		hassan.executeForm(*form);
 	}
 	catch(const std::exception& e)
 	{
-		std::cerr << e.what() << std::endl;
+		std::cerr << e.what() << '\n';
 	}
+	if (form)
+		delete form;
 	return (0);
 }
+
+
