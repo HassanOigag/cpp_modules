@@ -6,14 +6,14 @@
 /*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 11:08:43 by hoigag            #+#    #+#             */
-/*   Updated: 2023/11/25 18:29:52 by hoigag           ###   ########.fr       */
+/*   Updated: 2023/11/26 12:15:59 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ScalarConverter.hpp"
 #include <iostream>
 #include <iomanip>
-#include <limits>
+#include <limits.h>
 
 ScalarConverter::ScalarConverter()
 {
@@ -22,7 +22,7 @@ ScalarConverter::ScalarConverter()
 
 ScalarConverter::~ScalarConverter()
 {
-
+    
 }
 
 ScalarConverter::ScalarConverter(const ScalarConverter& __unused other)
@@ -60,32 +60,26 @@ void displayFloat(double number, int precision)
 {
     std::cout << "float  : ";
     std::cout << std::fixed << std::setprecision(precision);
-    if (number == 0)
-        std::cout << number << "f" << std::endl;
-    else if (number == std::numeric_limits<float>::infinity())
+    if (number >= std::numeric_limits<float>::infinity())
         std::cout << "+inff" << std::endl;
-    else if (number == -std::numeric_limits<float>::infinity())
+    else if (number <= -std::numeric_limits<float>::infinity())
         std::cout << "-inff" << std::endl;
-    else if (number > std::numeric_limits<float>::max())
-        std::cout << "impossible" << std::endl;
     else
-        std::cout << number << "f" << std::endl;
+        std::cout << static_cast<float>(number) << "f" << std::endl;
 }
 
 void displayDouble(double number, int precision)
 {
     std::cout << "double : ";
-    std::cout << std::fixed << std::setprecision(precision);
-     if (number == 0)
-        std::cout << number << std::endl;
-    else if (number == std::numeric_limits<double>::infinity())
+    std::cout << std::setprecision(precision);
+    if (number >= std::numeric_limits<double>::infinity())
         std::cout << "+inf" << std::endl;
-    else if (number == -std::numeric_limits<double>::infinity())
+    else if (number <= -std::numeric_limits<double>::infinity())
         std::cout << "-inf" << std::endl;
     else if (number > std::numeric_limits<double>::max())
         std::cout << "impossible" << std::endl;
     else
-        std::cout << number << std::endl;
+        std::cout << static_cast<double>(number) << std::endl;
 }
 
 
@@ -95,7 +89,12 @@ int getPrecision(std::string literal)
     if (commaPos == -1)
         return 1;
     std::string fractionalPart = literal.substr(commaPos + 1);
-    return fractionalPart.length();
+    int size = fractionalPart.length();
+    if (literal.find("f") != std::string::npos)
+        size -= 1;
+    if (size == 0)
+        size += 1;
+    return size;
 }
 
 void prettify_display(double number, int precision)
