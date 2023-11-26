@@ -5,22 +5,31 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/23 11:14:12 by hoigag            #+#    #+#             */
-/*   Updated: 2023/11/26 13:05:51 by hoigag           ###   ########.fr       */
+/*   Created: 2023/11/26 14:11:41 by hoigag            #+#    #+#             */
+/*   Updated: 2023/11/26 16:45:47 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ScalarConverter.hpp"
 #include <iostream>
+#include "helpers.hpp"
 
-int main(int argc, char **argv)
+int main()
 {
-	if (argc != 2)
-	{
-		std::cerr << "Invalid number of args" << std::endl;
-		return 1;
-	}
-	std::string literal = argv[1];
-	ScalarConverter::convert(literal);
+	Base *p = generate();
+	
+	A a;
+	B b;
+	C c;
+	
+	Base &ra = a;
+	Base &rb = b;
+	Base &rc = c;
+	
+	identify(p);
+	
+	identify(ra);
+	identify(rb);
+	identify(rc);
+	delete p;
 	return 0;
 }

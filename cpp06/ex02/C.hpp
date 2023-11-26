@@ -1,26 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   C.hpp                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/23 11:14:12 by hoigag            #+#    #+#             */
-/*   Updated: 2023/11/26 13:05:51 by hoigag           ###   ########.fr       */
+/*   Created: 2023/11/26 13:56:52 by hoigag            #+#    #+#             */
+/*   Updated: 2023/11/26 13:57:22 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ScalarConverter.hpp"
-#include <iostream>
+#ifndef C_HPP
+#define C_HPP
+#include "Base.hpp"
 
-int main(int argc, char **argv)
+class C : public Base
 {
-	if (argc != 2)
-	{
-		std::cerr << "Invalid number of args" << std::endl;
-		return 1;
-	}
-	std::string literal = argv[1];
-	ScalarConverter::convert(literal);
-	return 0;
-}
+};
+
+#endif

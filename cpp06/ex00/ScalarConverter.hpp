@@ -6,7 +6,7 @@
 /*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 11:04:12 by hoigag            #+#    #+#             */
-/*   Updated: 2023/11/25 16:37:59 by hoigag           ###   ########.fr       */
+/*   Updated: 2023/11/26 13:06:47 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ class ScalarConverter
 {
 	public:
 		static void convert(std::string literal);
-	private:
-		ScalarConverter();
 		~ScalarConverter();
 		ScalarConverter(const ScalarConverter& other);
 		ScalarConverter& operator=(const ScalarConverter& other);
+	private:
+		ScalarConverter();
 };
 
 #endif

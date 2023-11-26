@@ -1,26 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   helpers.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/23 11:14:12 by hoigag            #+#    #+#             */
-/*   Updated: 2023/11/26 13:05:51 by hoigag           ###   ########.fr       */
+/*   Created: 2023/11/26 14:07:10 by hoigag            #+#    #+#             */
+/*   Updated: 2023/11/26 14:08:14 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ScalarConverter.hpp"
-#include <iostream>
+#ifndef HELPERS_HPP
+#define HELPERS_HPP
 
-int main(int argc, char **argv)
-{
-	if (argc != 2)
-	{
-		std::cerr << "Invalid number of args" << std::endl;
-		return 1;
-	}
-	std::string literal = argv[1];
-	ScalarConverter::convert(literal);
-	return 0;
-}
+#include "Base.hpp"
+#include "A.hpp"
+#include "B.hpp"
+#include "C.hpp"
+
+Base * generate(void);
+void identify(Base* p);
+void identify(Base& p);
+
+#endif
