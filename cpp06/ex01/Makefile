@@ -4,7 +4,7 @@ CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
 NAME = serializer
 
-SRCS = main.cpp Serialize.cpp
+SRCS = main.cpp Serializer.cpp
 
 HEADERS = Serializer.hpp
 
