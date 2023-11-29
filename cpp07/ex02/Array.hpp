@@ -6,7 +6,7 @@
 /*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 16:34:24 by hoigag            #+#    #+#             */
-/*   Updated: 2023/11/28 20:00:59 by hoigag           ###   ########.fr       */
+/*   Updated: 2023/11/29 16:28:06 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,33 +22,31 @@ class Array
 		Array()
 		{
 			this->length = 0;
-			this->array = new T();
-			std::cout << *this->array << std::endl;
+			this->array = new T[0];
 		}
 		Array(unsigned int n)
 		{
 			this->length = n;
-			this->array = new T[n];
+			this->array = new T[n]();
 		}
 		~Array()
 		{
-			if (this->length == 0)
-				delete this->array;
-			else
+			if (this->array)
 				delete[] this->array;
 		}
+
 		Array(const Array& other)
 		{
-			std::cout << "copy constructor" << std::endl;
 			this->length = other.length;
 			this->array = new T[other.length];
 			for (unsigned int i = 0; i  < other.length; i++)
 				this->array[i] = other.array[i];
 		}
+
 		Array& operator=(const Array& other)
 		{
-			std::cout << "copy assignement constructor" << std::endl;
-			delete this->array; 
+			if (this->length)
+				delete[] this->array;
 			this->array = new T[other.length];
 			this->length = other.length;
 			for (unsigned int i = 0; i < other.length; i++)

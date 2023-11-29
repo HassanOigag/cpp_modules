@@ -2,11 +2,11 @@ CXX = c++
 
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
-NAME = array
+NAME = whatever
 
-SRCS =  main.cpp
+SRCS = main.cpp
 
-HEADERS = Array.hpp
+HEADERS = whatever.hpp
 
 OBJS = $(SRCS:.cpp=.o)
 
