@@ -5,27 +5,37 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/05 11:43:23 by hoigag            #+#    #+#             */
-/*   Updated: 2023/12/05 18:24:51 by hoigag           ###   ########.fr       */
+/*   Created: 2023/12/05 21:03:04 by hoigag            #+#    #+#             */
+/*   Updated: 2023/12/07 16:01:39 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+
+#include <stack>
 #include <iostream>
-#include "Span.hpp"
+#include "MutantStack.hpp"
 
 int main()
 {
-	try
+	MutantStack<int> mstack;
+	mstack.push(5);
+	mstack.push(17);
+	std::cout << mstack.top() << std::endl;
+	mstack.pop();
+	std::cout << mstack.size() << std::endl;
+	mstack.push(3);
+	mstack.push(5);
+	mstack.push(737);
+	mstack.push(0);
+	MutantStack<int>::iterator it = mstack.begin();
+	MutantStack<int>::iterator ite = mstack.end();
+	++it;
+	--it;
+	while (it != ite)
 	{
-		Span sp = Span(15);
-		sp.fillSpan(-100, 100);
-		std::cout << "shortest span: " << sp.shortestSpan() << std::endl;
-		std::cout << "longest  span: " << sp.longestSpan() << std::endl;
+		std::cout << *it << std::endl;
+		++it;
 	}
-	catch(const std::exception& e)
-	{ 
-		std::cerr << e.what() << '\n';
-	}
-	
+	std::stack<int> s(mstack);
 	return (0);
 }

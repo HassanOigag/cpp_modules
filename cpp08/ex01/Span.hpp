@@ -6,7 +6,7 @@
 /*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 17:53:38 by hoigag            #+#    #+#             */
-/*   Updated: 2023/12/05 13:26:39 by hoigag           ###   ########.fr       */
+/*   Updated: 2023/12/05 18:24:08 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ class Span
 		void printSpan() const;
 		unsigned int longestSpan();
 		unsigned int shortestSpan();
-		void fillSpan();
+		void fillSpan(int min, int max);
 	private:
 		unsigned int N;
 		unsigned int currentSize;
