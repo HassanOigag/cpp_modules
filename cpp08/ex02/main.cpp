@@ -6,7 +6,7 @@
 /*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 21:03:04 by hoigag            #+#    #+#             */
-/*   Updated: 2023/12/07 17:35:47 by hoigag           ###   ########.fr       */
+/*   Updated: 2023/12/09 15:00:49 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ int main()
 		++it;
 	}
 	std::stack<int> s(mstack);
-	//my tests
 	std::cout << "my tests using list" << std::endl;
 	std::list<int> mlist;
 	mlist.push_back(5);

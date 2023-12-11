@@ -6,7 +6,7 @@
 /*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 10:16:27 by hoigag            #+#    #+#             */
-/*   Updated: 2023/12/05 18:23:59 by hoigag           ###   ########.fr       */
+/*   Updated: 2023/12/09 14:55:55 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ unsigned int Span::longestSpan()
     int max = *std::max_element(this->span.cbegin(), this->span.cend());
     int min = *std::min_element(this->span.cbegin(), this->span.cend());
     int distance = max - min;
-    return (std::abs(distance));
+    return (distance);
 }
 
 unsigned int Span::shortestSpan()
