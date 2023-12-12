@@ -6,7 +6,7 @@
 /*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 12:27:31 by hoigag            #+#    #+#             */
-/*   Updated: 2023/12/11 18:01:41 by hoigag           ###   ########.fr       */
+/*   Updated: 2023/12/12 18:05:21 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,6 @@ class BitcoinExchange
 		std::string db_filename;
 		std::map<std::string, double> data;
 };
+void loadInputFile(std::string fileName);
 
 #endif

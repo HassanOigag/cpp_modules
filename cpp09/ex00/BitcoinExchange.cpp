@@ -6,7 +6,7 @@
 /*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 12:28:15 by hoigag            #+#    #+#             */
-/*   Updated: 2023/12/11 18:13:08 by hoigag           ###   ########.fr       */
+/*   Updated: 2023/12/12 18:34:58 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
+#include <stdexcept>
 BitcoinExchange::BitcoinExchange()
 {
     this->db_filename = "data.csv";
@@ -61,5 +62,30 @@ void BitcoinExchange::printData() const
     {
         std::cout << it->first << " " << it->second << std::endl;
         it++;
+    }
+}
+
+
+void loadInputFile(std::string fileName)
+{
+    std::fstream inputFile(fileName.c_str());
+    if (!inputFile.is_open())
+        std::runtime_error("could not open the input file");
+    std::string line;
+    getline(inputFile, line);
+    while (getline(inputFile, line))
+    {
+        std::stringstream stream;
+        stream.str(line);
+        std::string date;
+        std::string price;
+        getline(stream, date, '|');
+        getline(stream, price);
+        if (price.empty())
+        {
+            std::runtime_error("price is emtpy");
+            exit(125);
+        }
+        std::cout << date << " " << "<" << price << ">" << std::endl;
     }
 }
