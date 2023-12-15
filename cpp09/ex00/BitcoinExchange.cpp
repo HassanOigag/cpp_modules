@@ -6,7 +6,7 @@
 /*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 12:28:15 by hoigag            #+#    #+#             */
-/*   Updated: 2023/12/14 17:37:52 by hoigag           ###   ########.fr       */
+/*   Updated: 2023/12/15 17:24:14 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,14 @@
 #include <sstream>
 #include <stdexcept>
 #include <ctime>
+
+ 
+
+
 BitcoinExchange::BitcoinExchange()
 {
     this->db_filename = "data.csv";
+    this->loadDataBase();
 }
 
 BitcoinExchange::~BitcoinExchange()
@@ -37,7 +42,12 @@ BitcoinExchange& BitcoinExchange::operator=(const BitcoinExchange& other)
     return *this;
 }
 
-void BitcoinExchange::loadData()
+int convertDateToInt(std::string )
+{
+    
+}
+
+void BitcoinExchange::loadDataBase()
 {
     std::ifstream file(this->db_filename.c_str());
     if (!file.is_open())
@@ -49,17 +59,18 @@ void BitcoinExchange::loadData()
         std::stringstream stream;
         stream.str(line);
         std::string date;
+        std::string strExchangeRate; 
         double exchangeRate;
         std::getline(stream, date, ',');
         stream >> exchangeRate;
-        this->data.insert(std::make_pair(date, exchangeRate));
+        this->dataBase.insert(std::make_pair(date, exchangeRate));
     }
 }
 
 void BitcoinExchange::printData() const
 {
-    std::map<std::string, double>::const_iterator it = this->data.cbegin();
-    while (it  != data.cend())
+    std::map<std::string, double>::const_iterator it = this->dataBase.cbegin();
+    while (it  != dataBase.cend())
     {
         std::cout << it->first << " " << it->second << std::endl;
         it++;
@@ -90,10 +101,7 @@ double getDouble(std::string& literal)
     for (int i = 0; garbage[i]; i++)
     {
         if (garbage[i] != ' ')
-        {
-            std::string msg = "Error: bad input => " + literal;
-            throw std::runtime_error(msg);
-        }
+            throw std::runtime_error("Error: bad input => " + literal);
     }
     return number;
 }
@@ -114,7 +122,7 @@ int isDateValid(int day, int month, int year)
 }
 
 
-int parseDate(std::string& date)
+void parseDate(std::string& date)
 {
     trimString(date);
     if (date.empty())
@@ -127,24 +135,24 @@ int parseDate(std::string& date)
     std::getline(stream, strMonth, '-');
     std::getline(stream, strDay);
     if (strYear.empty() || strMonth.empty() || strDay.empty())        
-        throw std::runtime_error("Error: empty field");
+        throw std::runtime_error("Error: missing date element");
     try
     {
         year = getDouble(strYear);
         month = getDouble(strMonth);           
-        day = getDouble(strDay);
-        if (!isDateValid(day, month, year))
-            std::cerr << ("Error: bad input => " + date) << std::endl;           
+        day = getDouble(strDay);        
     }
     catch(const std::exception& e)
     {
         std::cerr << "Error: bad input => " + date << std::endl;
+        return;
     }
-    return 0;
+    if (!isDateValid(day, month, year))
+        throw std::runtime_error("Error: bad input => " + date);   
 }
 
 
-void loadInputFile(std::string fileName)
+void BitcoinExchange::exchange(std::string fileName)
 {
     std::fstream inputFile(fileName.c_str());
     if (!inputFile.is_open())
@@ -156,28 +164,20 @@ void loadInputFile(std::string fileName)
         std::stringstream stream;
         stream.str(line);
         std::string date;
-        std::string price;
+        std::string strPrice;
+        double price;
         getline(stream, date, '|');
-        getline(stream, price);
+        getline(stream, strPrice);
         try
         {
             parseDate(date);
-            double p = getDouble(price);
-            std::cout << p << std::endl;
+            price = getDouble(strPrice);
+            std::cout << this->dataBase[date] << std::endl;
+            // std::cout << date << " => " << price <<  " = " << "100" << std::endl;
         }
         catch(const std::exception& e)
         {
             std::cerr << e.what() << '\n';
         }
-        
-        // std::cout << "<" << date << ">" << std::endl;
-        // getline(stream, price);
-        // if (date.empty() || price.empty())
-        // {
-        //     std::cerr << "Error: bad input" << std::endl;
-        //     continue;
-        // }
-        // std::cout << "<" << date << ">" << " | "
-        //           << "<" << price << ">" << std::endl;
     }
 }
