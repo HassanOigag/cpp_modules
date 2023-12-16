@@ -6,7 +6,7 @@
 /*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 12:28:15 by hoigag            #+#    #+#             */
-/*   Updated: 2023/12/15 17:24:14 by hoigag           ###   ########.fr       */
+/*   Updated: 2023/12/16 17:15:20 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@
 #include <stdexcept>
 #include <ctime>
 
- 
-
 
 BitcoinExchange::BitcoinExchange()
 {
@@ -28,7 +26,7 @@ BitcoinExchange::BitcoinExchange()
 
 BitcoinExchange::~BitcoinExchange()
 {
-    
+    std::cout << "destructor failed" << std::endl;
 }
 
 BitcoinExchange::BitcoinExchange(const BitcoinExchange& other)
@@ -42,9 +40,22 @@ BitcoinExchange& BitcoinExchange::operator=(const BitcoinExchange& other)
     return *this;
 }
 
-int convertDateToInt(std::string )
+
+std::pair<int, double> BitcoinExchange::parseLine(std::string line, char sep)
 {
-    
+    std::pair<int, double> data;
+    std::stringstream stream;
+    stream.str(line);
+    std::string date;
+    std::string strPrice;
+    double price;
+    std::getline(stream, date, sep);
+    std::getline(stream, strPrice);
+    this->parseDate(date);
+    price = getDouble(strPrice);
+    data.first = this->dateToInt(date);
+    data.second = price;
+    return data;
 }
 
 void BitcoinExchange::loadDataBase()
@@ -56,14 +67,8 @@ void BitcoinExchange::loadDataBase()
     std::getline(file, line);
     while (std::getline(file, line))
     {
-        std::stringstream stream;
-        stream.str(line);
-        std::string date;
-        std::string strExchangeRate; 
-        double exchangeRate;
-        std::getline(stream, date, ',');
-        stream >> exchangeRate;
-        this->dataBase.insert(std::make_pair(date, exchangeRate));
+        std::pair<std::string, double> pair= this->parseLine(line, ',');
+        this->dataBase.insert(pair);
     }
 }
 
@@ -89,7 +94,7 @@ void trimString(std::string& str)
     str = str.substr(start, end - start + 1);
 }
 
-double getDouble(std::string& literal)
+double BitcoinExchange::getDouble(std::string& literal)
 {
     double number;
     char *garbage;
@@ -110,19 +115,20 @@ int isDateValid(int day, int month, int year)
 {
     std::time_t t = std::time(0);
     std::tm* now = std::localtime(&t);
-    if (day < 0 || day > 31 || month < 0 || month > 12 || year < 0)
+    int correctYear = now->tm_year + 1900;
+    if (day < 0 || day > 31 || month < 0 || month > 12 || year < 2009 || year > correctYear)
         return 0;
     if (day < 2 && month < 1 && year < 2009)
         return (0);
     if (month == 2 && day > 29)
         return 0;
-    if (day > now->tm_mday && month > now->tm_mon && year > now->tm_year)
+    if (day > now->tm_mday && month > now->tm_mon && year > correctYear)
         return 0;
     return 1;
 }
 
 
-void parseDate(std::string& date)
+void BitcoinExchange::parseDate(std::string& date)
 {
     trimString(date);
     if (date.empty())
@@ -136,18 +142,10 @@ void parseDate(std::string& date)
     std::getline(stream, strDay);
     if (strYear.empty() || strMonth.empty() || strDay.empty())        
         throw std::runtime_error("Error: missing date element");
-    try
-    {
-        year = getDouble(strYear);
-        month = getDouble(strMonth);           
-        day = getDouble(strDay);        
-    }
-    catch(const std::exception& e)
-    {
-        std::cerr << "Error: bad input => " + date << std::endl;
-        return;
-    }
-    if (!isDateValid(day, month, year))
+    year = getDouble(strYear);
+    month = getDouble(strMonth);           
+    day = getDouble(strDay);        
+    if (date.length() != 10 || !isDateValid(day, month, year))
         throw std::runtime_error("Error: bad input => " + date);   
 }
 
@@ -161,19 +159,17 @@ void BitcoinExchange::exchange(std::string fileName)
     getline(inputFile, line);
     while (getline(inputFile, line))
     {
-        std::stringstream stream;
-        stream.str(line);
-        std::string date;
-        std::string strPrice;
-        double price;
-        getline(stream, date, '|');
-        getline(stream, strPrice);
         try
         {
-            parseDate(date);
-            price = getDouble(strPrice);
-            std::cout << this->dataBase[date] << std::endl;
-            // std::cout << date << " => " << price <<  " = " << "100" << std::endl;
+            std::pair<std::string, double> data = this->parseLine(line, '|');
+            if (data.second < 0 || data.second > 1000)
+            {
+                std::string type = line.substr(line.find("|") + 1);
+                trimString(type);
+                throw std::runtime_error("Error: bad input => " + type);
+            }
+            // std::cout << data.first << " | " << data.second << std::endl;
+            std::cout << this->intToDate(20202519) << std::endl;;
         }
         catch(const std::exception& e)
         {
@@ -181,3 +177,28 @@ void BitcoinExchange::exchange(std::string fileName)
         }
     }
 }
+int BitcoinExchange::dateToInt(std::string &date)
+{
+    std::stringstream stream;
+    stream.str(date);
+    int year, month, day;
+    std::string strYear, strMonth, strDay;
+    std::getline(stream, strYear, '-');
+    std::getline(stream, strMonth, '-');
+    std::getline(stream, strDay);
+    if (strYear.empty() || strMonth.empty() || strDay.empty())        
+        throw std::runtime_error("Error: missing date element");
+    year = this->getDouble(strYear);
+    month = this->getDouble(strMonth);           
+    day = this->getDouble(strDay);
+    return ((year * 10000) + (month * 100) + day);
+}
+
+// std::string BitcoinExchange::intToDate(int date)
+// {
+//     int year = date / 10000;
+//     int month = (date - year * 10000) / 100;
+//     int day = date % 100;
+//     std::cout << year << " " << month << " " << day << std::endl;
+//     return "";
+// }

@@ -6,12 +6,13 @@
 /*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 12:18:46 by hoigag            #+#    #+#             */
-/*   Updated: 2023/12/15 15:35:23 by hoigag           ###   ########.fr       */
+/*   Updated: 2023/12/16 16:48:30 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include "BitcoinExchange.hpp"
+#include <sstream>
 
 
 
