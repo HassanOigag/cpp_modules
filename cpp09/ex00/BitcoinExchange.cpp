@@ -6,7 +6,7 @@
 /*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 12:28:15 by hoigag            #+#    #+#             */
-/*   Updated: 2023/12/16 17:15:20 by hoigag           ###   ########.fr       */
+/*   Updated: 2023/12/19 16:32:02 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ BitcoinExchange::BitcoinExchange()
 
 BitcoinExchange::~BitcoinExchange()
 {
-    std::cout << "destructor failed" << std::endl;
+    // std::cout << "destructor failed" << std::endl;
 }
 
 BitcoinExchange::BitcoinExchange(const BitcoinExchange& other)
@@ -65,23 +65,24 @@ void BitcoinExchange::loadDataBase()
         throw std::runtime_error("Error: could not open the file");
     std::string line;
     std::getline(file, line);
+    if (line.find("date") == std::string::npos)
+        throw std::runtime_error("invalid file format");
     while (std::getline(file, line))
     {
-        std::pair<std::string, double> pair= this->parseLine(line, ',');
+        std::pair<int, double> pair = this->parseLine(line, ',');
         this->dataBase.insert(pair);
     }
 }
 
 void BitcoinExchange::printData() const
 {
-    std::map<std::string, double>::const_iterator it = this->dataBase.cbegin();
+    std::map<int, double>::const_iterator it = this->dataBase.cbegin();
     while (it  != dataBase.cend())
     {
         std::cout << it->first << " " << it->second << std::endl;
         it++;
     }
 }
-
 
 void trimString(std::string& str)
 {
@@ -116,9 +117,9 @@ int isDateValid(int day, int month, int year)
     std::time_t t = std::time(0);
     std::tm* now = std::localtime(&t);
     int correctYear = now->tm_year + 1900;
-    if (day < 0 || day > 31 || month < 0 || month > 12 || year < 2009 || year > correctYear)
+    if (day <= 0 || day > 31 || month <= 0 || month > 12 || year < 2009 || year > correctYear)
         return 0;
-    if (day < 2 && month < 1 && year < 2009)
+    if (year == 2009 && month == 1 && day < 2)
         return (0);
     if (month == 2 && day > 29)
         return 0;
@@ -148,7 +149,16 @@ void BitcoinExchange::parseDate(std::string& date)
     if (date.length() != 10 || !isDateValid(day, month, year))
         throw std::runtime_error("Error: bad input => " + date);   
 }
-
+double BitcoinExchange::getValue(int key)
+{
+    std::map<int, double>::iterator isFound = this->dataBase.find(key);
+    if (isFound != this->dataBase.end())
+        return (*isFound).second;
+    isFound = this->dataBase.lower_bound(key);
+    if (isFound != this->dataBase.begin())
+        isFound--;
+    return isFound->second;   
+}
 
 void BitcoinExchange::exchange(std::string fileName)
 {
@@ -157,19 +167,21 @@ void BitcoinExchange::exchange(std::string fileName)
         throw std::runtime_error("Error: could not open the input file");
     std::string line;
     getline(inputFile, line);
+    if (line.find("value") == std::string::npos)
+        throw std::runtime_error("invalid file format");
     while (getline(inputFile, line))
     {
         try
         {
-            std::pair<std::string, double> data = this->parseLine(line, '|');
-            if (data.second < 0 || data.second > 1000)
-            {
-                std::string type = line.substr(line.find("|") + 1);
-                trimString(type);
-                throw std::runtime_error("Error: bad input => " + type);
-            }
-            // std::cout << data.first << " | " << data.second << std::endl;
-            std::cout << this->intToDate(20202519) << std::endl;;
+            std::pair<int, double> data = this->parseLine(line, '|');
+            if (data.second < 0)
+                throw std::runtime_error("Error: not a positive number.");
+            if (data.second > 1000)
+                throw std::runtime_error("Error: too large a number.");
+            std::string date = line.substr(0, line.find("|"));
+            trimString(date);
+            double result = this->getValue(data.first) * data.second;
+            std::cout << date << " => " << data.second << " = " << result << std::endl;
         }
         catch(const std::exception& e)
         {
@@ -193,12 +205,3 @@ int BitcoinExchange::dateToInt(std::string &date)
     day = this->getDouble(strDay);
     return ((year * 10000) + (month * 100) + day);
 }
-
-// std::string BitcoinExchange::intToDate(int date)
-// {
-//     int year = date / 10000;
-//     int month = (date - year * 10000) / 100;
-//     int day = date % 100;
-//     std::cout << year << " " << month << " " << day << std::endl;
-//     return "";
-// }

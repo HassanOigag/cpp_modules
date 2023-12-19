@@ -6,7 +6,7 @@
 /*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 12:27:31 by hoigag            #+#    #+#             */
-/*   Updated: 2023/12/16 17:15:42 by hoigag           ###   ########.fr       */
+/*   Updated: 2023/12/18 11:22:23 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,13 @@ class BitcoinExchange
 		void exchange(std::string fileName);
 	private:
 		std::string db_filename;
-		std::map<std::string, double> dataBase;
+		std::map<int, double> dataBase;
 		void loadDataBase();
 		void parseDate(std::string& date);
 		double getDouble(std::string& literal);
 		int dateToInt(std::string &date);
-		std::string intToDate(int date);
+		double getValue(int key);
+		// std::string intToDate(int date);
 		std::pair<int, double> parseLine(std::string line, char sep);
 };
 void loadInputFile(std::string fileName);
