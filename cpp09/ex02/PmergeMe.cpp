@@ -6,7 +6,7 @@
 /*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 15:31:49 by hoigag            #+#    #+#             */
-/*   Updated: 2024/01/03 17:42:20 by hoigag           ###   ########.fr       */
+/*   Updated: 2024/01/03 17:56:10 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,15 +137,14 @@ void PmergeMe::mergeInsertSmthSmth()
 
 void PmergeMe::marrySingles()
 {
+    std::vector< std::vector<int> > holder;
     std::vector< std::vector<int> >::iterator it = this->numbers.begin();
+    size_t original_size = this->numbers.size();
+    this->printMyContainer();
     while (it != this->numbers.end())
     {
-        std::vector<int> res = concatVecs(*it, *(it + 1)); 
-        this->printVector(res);
-        std::cout << std::endl;
-        // this->numbers.insert(it, res);
-        this->printMyContainer();
-        it+=2;
+        holder.push_back(*it);
+        it++;
     }
 }
 
