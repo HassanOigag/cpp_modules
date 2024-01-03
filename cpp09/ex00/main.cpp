@@ -6,7 +6,7 @@
 /*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 12:18:46 by hoigag            #+#    #+#             */
-/*   Updated: 2023/12/18 11:19:34 by hoigag           ###   ########.fr       */
+/*   Updated: 2023/12/20 15:29:20 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ int main(int argc, char **argv)
     {
         std::string inputFileName = argv[1];
         BitcoinExchange be;
-        // be.printData();
         be.exchange(inputFileName);
     }
     catch(const std::exception& e)

@@ -6,7 +6,7 @@
 /*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 12:28:15 by hoigag            #+#    #+#             */
-/*   Updated: 2023/12/19 16:32:02 by hoigag           ###   ########.fr       */
+/*   Updated: 2023/12/20 15:25:15 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,6 +157,8 @@ double BitcoinExchange::getValue(int key)
     isFound = this->dataBase.lower_bound(key);
     if (isFound != this->dataBase.begin())
         isFound--;
+    else
+        throw std::runtime_error("Error: date doesn't exist in database");
     return isFound->second;   
 }
 
