@@ -6,7 +6,7 @@
 /*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 15:31:49 by hoigag            #+#    #+#             */
-/*   Updated: 2024/01/03 17:56:10 by hoigag           ###   ########.fr       */
+/*   Updated: 2024/01/04 17:25:40 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,11 +74,11 @@ void PmergeMe::parseString()
     }
 }
 
-void PmergeMe::printMyContainer()
+void PmergeMe::printContainer(std::vector< std::vector<int> > container)
 {
-    std::vector<std::vector<int> >::iterator it = this->numbers.begin();
+    std::vector<std::vector<int> >::iterator it = container.begin();
     printColored("[", 1);
-    while (it != this->numbers.end())
+    while (it != container.end())
     {
         this->printVector(*it);
         it++;
@@ -86,6 +86,14 @@ void PmergeMe::printMyContainer()
     printColored("]", 1);
     std::cout << std::endl;
 }
+void PmergeMe::printNumbers()
+{
+    std::cout << "Numbers: ";
+    this->printContainer(this->numbers);
+    std::cout << "Remain: ";
+    this->printContainer(this->remain);
+}
+
 
 
 void PmergeMe::printVector(std::vector<int> numbers)
@@ -121,30 +129,38 @@ std::vector<int> concatVecs(std::vector<int>& first, std::vector<int>& second)
     second.clear();
     return res;
 }
-void PmergeMe::mergeInsertSmthSmth()
+void PmergeMe::forwardRecursion()
 {
+    std::vector<int> remain;
     if (this->numbers.size() == 1)
         return;
     if (this->numbers.size() % 2 != 0)
     {
-        this->remain = this->numbers.back();
-        this->numbers.pop_back();
+        remain = this->numbers.back();
+        numbers.pop_back();
     }
     this->marrySingles();
+    this->printContainer(this->numbers);
+    this->forwardRecursion();
+    this->printVector(remain);
+    std::cout << std::endl;
 }
 // [[1 2][3][4][5]]
 // [6 8 1] [0 7 0]
-
+std::vector< std::vector<int> > PmergeMe::getNumbers()
+{
+    return this->numbers;
+}
 void PmergeMe::marrySingles()
 {
-    std::vector< std::vector<int> > holder;
-    std::vector< std::vector<int> >::iterator it = this->numbers.begin();
-    size_t original_size = this->numbers.size();
-    this->printMyContainer();
-    while (it != this->numbers.end())
+    std::vector< std::vector<int> > holder = this->numbers;
+    this->numbers.clear();
+    std::vector< std::vector<int> >::iterator it = holder.begin();
+    while (it != holder.end())
     {
-        holder.push_back(*it);
-        it++;
+        std::vector<int> res = concatVecs(*it, *(it + 1));
+        this->numbers.push_back(res);
+        it += 2;
     }
 }
 

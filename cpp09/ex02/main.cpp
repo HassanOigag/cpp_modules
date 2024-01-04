@@ -6,7 +6,7 @@
 /*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 15:31:44 by hoigag            #+#    #+#             */
-/*   Updated: 2024/01/03 12:21:00 by hoigag           ###   ########.fr       */
+/*   Updated: 2024/01/04 15:37:09 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,9 @@ int main(int argc, char **argv)
 		std::string input = concat(argv + 1);
 		PmergeMe pmm(input);
 		pmm.parseString();
-		// pmm.printMyContainer();
-		pmm.mergeInsertSmthSmth();
+		pmm.printContainer(pmm.getNumbers());
+		pmm.forwardRecursion();
+		// pmm.printNumbers();
 	}
 	catch(const std::exception& e)
 	{
