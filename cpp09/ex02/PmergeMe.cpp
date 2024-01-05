@@ -6,7 +6,7 @@
 /*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 15:31:49 by hoigag            #+#    #+#             */
-/*   Updated: 2024/01/04 17:25:40 by hoigag           ###   ########.fr       */
+/*   Updated: 2024/01/05 17:47:51 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ void PmergeMe::printVector(std::vector<int> numbers)
     printColored("]", 0);
 }
 
+
 std::vector<int> concatVecs(std::vector<int>& first, std::vector<int>& second)
 {
     std::vector<int> res;
@@ -129,6 +130,18 @@ std::vector<int> concatVecs(std::vector<int>& first, std::vector<int>& second)
     second.clear();
     return res;
 }
+
+std::pair<std::vector<int>, std::vector<int> > slice(std::vector<int> main)
+{
+    int middle = main.size() / 2;
+    std::vector<int>::iterator it = main.begin();
+    std::vector<int> vec1(it, it + middle);
+    std::vector<int> vec2(it + middle, main.end());
+    std::pair<std::vector<int>, std::vector<int> > pair;
+    pair.first = vec1;
+    pair.second = vec2;
+    return pair;
+}
 void PmergeMe::forwardRecursion()
 {
     std::vector<int> remain;
@@ -140,13 +153,64 @@ void PmergeMe::forwardRecursion()
         numbers.pop_back();
     }
     this->marrySingles();
-    this->printContainer(this->numbers);
     this->forwardRecursion();
-    this->printVector(remain);
-    std::cout << std::endl;
+    this->backwardsRecursion(remain);
+    // this->printContainer(this->numbers);
+
+    // exit(1);
+}
+
+// [[1 2 3 4 5 6 7 8]] 
+// [[1 2 3 4][5 6 7 8]]
+// // m = [5 6 7 8]
+// // p = [1 2 3 4]
+// [[1 2][3 4][5 6][7 8]]
+// // m = [3 4] [7 8]
+// // p = [1 2] [5 6]
+// [[1 2] [3 4] [5 6] [7 8]]
+
+
+void PmergeMe::unpair()
+{
+    if (this->numbers[0].size() == 1)
+        return;
+    std::vector< std::vector<int> > holder;
+    std::vector< std::vector<int> >::iterator it = this->numbers.begin();
+    while (it != this->numbers.end())
+    {
+        std::pair<std::vector<int>, std::vector<int> > pair = slice(*it);
+        holder.push_back(pair.first);
+        holder.push_back(pair.second);
+        it++;
+    }
+    this->numbers.clear();
+    this->numbers = holder;
+    holder.clear();
+}
+
+void PmergeMe::backwardsRecursion(std::vector<int> __unused remain)
+{
+    this->unpair();
+    std::vector< std::vector<int> > mainChain;
+    std::vector< std::vector<int> > pend;
+    for (int i = 0; i < (int)this->numbers.size(); i++)
+    {
+        if (i % 2 == 0)
+            pend.push_back(this->numbers[i]);
+        else
+            mainChain.push_back(this->numbers[i]);
+    }
+    std::cout << "mainchain: ";
+    this->printContainer(mainChain);
+    std::cout << "pend: ";
+    pend.push_back(remain);
+    this->printContainer(pend);
 }
 // [[1 2][3][4][5]]
 // [6 8 1] [0 7 0]
+
+
+
 std::vector< std::vector<int> > PmergeMe::getNumbers()
 {
     return this->numbers;
