@@ -6,13 +6,14 @@
 /*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 15:31:49 by hoigag            #+#    #+#             */
-/*   Updated: 2024/01/05 17:47:51 by hoigag           ###   ########.fr       */
+/*   Updated: 2024/01/06 16:09:17 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PmergeMe.hpp"
 #include <sstream>
 #include <iostream>
+#include <algorithm>
 
 void printColored(std::string output, int flag)
 {
@@ -156,7 +157,6 @@ void PmergeMe::forwardRecursion()
     this->forwardRecursion();
     this->backwardsRecursion(remain);
     // this->printContainer(this->numbers);
-
     // exit(1);
 }
 
@@ -188,6 +188,13 @@ void PmergeMe::unpair()
     holder.clear();
 }
 
+bool compare(std::vector<int> a, std::vector<int> b)
+{
+    if (a.empty() || b.empty())
+        return false;
+    return a.back() < b.back();
+}
+
 void PmergeMe::backwardsRecursion(std::vector<int> __unused remain)
 {
     this->unpair();
@@ -200,11 +207,23 @@ void PmergeMe::backwardsRecursion(std::vector<int> __unused remain)
         else
             mainChain.push_back(this->numbers[i]);
     }
+    pend.push_back(remain);
+    // for (int i = 0; i < static_cast<int>(pend.size()); i++)
+    // {
     std::cout << "mainchain: ";
     this->printContainer(mainChain);
     std::cout << "pend: ";
-    pend.push_back(remain);
     this->printContainer(pend);
+    std::vector< std::vector<int> >::iterator it = pend.begin();
+    while (pend.size() != 0)
+    {
+        std::vector< std::vector<int> >::iterator pos = std::lower_bound(mainChain.begin(), mainChain.end(), *it, compare);
+        mainChain.insert(pos, *it);
+        pend.erase(it);
+        this->numbers.clear();
+        this->numbers = mainChain;
+    }
+    // }
 }
 // [[1 2][3][4][5]]
 // [6 8 1] [0 7 0]
