@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PmergeMe.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hoigag <student.1337.ma>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 15:31:49 by hoigag            #+#    #+#             */
-/*   Updated: 2024/01/06 16:09:17 by hoigag           ###   ########.fr       */
+/*   Updated: 2024/01/07 17:45:41 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 #include <sstream>
 #include <iostream>
 #include <algorithm>
+#include <limits>
 
+int i = 0;
 void printColored(std::string output, int flag)
 {
     //1 red, 0 green
@@ -47,8 +49,8 @@ static bool isValidNumber(std::string input)
         if (!std::isdigit(input[i]))
             return false;
     }
-    double number = strtod(input.c_str(), nullptr);
-    if (number > std::numeric_limits<int>::max() || number < 0)
+    double number = strtod(input.c_str(), NULL);
+    if ((number > std::numeric_limits<int>::max()) || number < 0)
         return false;
     return true;
 }
@@ -67,7 +69,7 @@ void PmergeMe::parseString()
     {
         if (!isValidNumber(soonToBeInt))
             throw std::runtime_error("Error");
-        double number = strtod(soonToBeInt.c_str(), nullptr);
+        double number = strtod(soonToBeInt.c_str(), NULL);
         int integer = static_cast<int>(number);
         std::vector<int> element;
         element.push_back(integer);    
@@ -100,9 +102,11 @@ void PmergeMe::printNumbers()
 void PmergeMe::printVector(std::vector<int> numbers)
 {
     if (numbers.empty())
+    {
+        std::cout << "[]";
         return;
+    }
     std::vector<int>::iterator it = numbers.begin();
-    printColored("[", 0);
     while (it != numbers.end())
     {
         std::cout << "\033[35m" << *it << "\033[0m";
@@ -119,11 +123,13 @@ std::vector<int> concatVecs(std::vector<int>& first, std::vector<int>& second)
     std::vector<int> res;
     if (first.back() < second.back())
     {
+        i++;
         res.insert(res.end(), first.begin(), first.end());
         res.insert(res.end(), second.begin(), second.end());
     }
     else
     {
+        i++;
         res.insert(res.end(), second.begin(), second.end());
         res.insert(res.end(), first.begin(), first.end());
     }
@@ -155,7 +161,17 @@ void PmergeMe::forwardRecursion()
     }
     this->marrySingles();
     this->forwardRecursion();
+    std::cout << "conatainer: ";
+    this->printContainer(this->numbers);
+    std::cout << "remain: ";
+    this->printVector(remain);
+    std::cout << std::endl;
     this->backwardsRecursion(remain);
+    // std::cout << "container: ";
+    // this->printContainer(this->numbers);
+    // std::cout << "remain: ";
+    // this->printVector(remain);
+    // std::cout << std::endl;
     // this->printContainer(this->numbers);
     // exit(1);
 }
@@ -190,16 +206,18 @@ void PmergeMe::unpair()
 
 bool compare(std::vector<int> a, std::vector<int> b)
 {
+    i++;
     if (a.empty() || b.empty())
         return false;
     return a.back() < b.back();
 }
 
-void PmergeMe::backwardsRecursion(std::vector<int> __unused remain)
+void PmergeMe::backwardsRecursion(std::vector<int> remain)
 {
     this->unpair();
     std::vector< std::vector<int> > mainChain;
     std::vector< std::vector<int> > pend;
+    
     for (int i = 0; i < (int)this->numbers.size(); i++)
     {
         if (i % 2 == 0)
@@ -207,13 +225,18 @@ void PmergeMe::backwardsRecursion(std::vector<int> __unused remain)
         else
             mainChain.push_back(this->numbers[i]);
     }
-    pend.push_back(remain);
+    if (!remain.empty())
+        pend.push_back(remain);
+    std::cout << "mainChain: ";
+    this->printContainer(mainChain);
+    std::cout << "pand: ";
+    this->printContainer(pend);
     // for (int i = 0; i < static_cast<int>(pend.size()); i++)
     // {
-    std::cout << "mainchain: ";
-    this->printContainer(mainChain);
-    std::cout << "pend: ";
-    this->printContainer(pend);
+    // std::cout << "mainchain: ";
+    // this->printContainer(mainChain);
+    // std::cout << "pend: ";
+    // this->printContainer(pend);
     std::vector< std::vector<int> >::iterator it = pend.begin();
     while (pend.size() != 0)
     {
@@ -223,6 +246,11 @@ void PmergeMe::backwardsRecursion(std::vector<int> __unused remain)
         this->numbers.clear();
         this->numbers = mainChain;
     }
+    std::cout << "after lower bound insertino" << std::endl;
+    std::cout << "mainChain: ";
+    this->printContainer(mainChain);
+    std::cout << "pand: ";
+    this->printContainer(pend);
     // }
 }
 // [[1 2][3][4][5]]
