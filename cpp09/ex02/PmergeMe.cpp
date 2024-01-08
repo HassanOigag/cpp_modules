@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PmergeMe.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoigag <student.1337.ma>                   +#+  +:+       +#+        */
+/*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 15:31:49 by hoigag            #+#    #+#             */
-/*   Updated: 2024/01/07 17:45:41 by hoigag           ###   ########.fr       */
+/*   Updated: 2024/01/08 17:27:15 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ void PmergeMe::printVector(std::vector<int> numbers)
         std::cout << "[]";
         return;
     }
+    printColored("[", 0);
     std::vector<int>::iterator it = numbers.begin();
     while (it != numbers.end())
     {
@@ -116,11 +117,10 @@ void PmergeMe::printVector(std::vector<int> numbers)
     }
     printColored("]", 0);
 }
-
-
 std::vector<int> concatVecs(std::vector<int>& first, std::vector<int>& second)
 {
     std::vector<int> res;
+    // i++;
     if (first.back() < second.back())
     {
         i++;
@@ -149,23 +149,82 @@ std::pair<std::vector<int>, std::vector<int> > slice(std::vector<int> main)
     pair.second = vec2;
     return pair;
 }
+
+bool compare(std::vector<int> a, std::vector<int> b)
+{
+    if (a.empty() || b.empty())
+        return false;
+    i++;
+    return a.back() < b.back();
+}
+
+
+// void insertSortedByLastElement(std::vector<std::vector<int> >& mainChain, std::vector<std::vector<int> >& pend)
+// {
+// //   std::vector<int> seq = jacobStahlSeq(pend.size());
+
+//   int prev = 0;
+//   int inserted = 0;
+//   int jacob = 0;
+//   for (size_t i = 0; i < seq.size(); i++)
+//   {
+//     jacob = seq[i];
+//     while (jacob > prev)
+//     {
+//       if (jacob - 1 == 0){
+//         inserted++;
+//         mainChain.insert(mainChain.begin(), pend[jacob - 1]);
+//       }
+
+//       else
+//       {
+//         std::vector<std::vector<int> >::iterator insertPos = std::lower_bound(mainChain.begin(), mainChain.begin() + inserted + jacob - 1, pend[jacob - 1], compare);
+//         mainChain.insert(insertPos, pend[jacob - 1]);
+//         inserted++;
+//       }
+//       jacob--;
+//     }
+//     prev = seq[i];
+//   }
+// }
 void PmergeMe::forwardRecursion()
 {
+    std::cout << "conatainer before pairing: ";
+    this->printContainer(this->numbers);
     std::vector<int> remain;
     if (this->numbers.size() == 1)
+    {
+        std::cout << "done with pairing : ";
+        this->printContainer(this->numbers);
+        std::cout << std::endl;
+        std::cout << std::endl;
+        std::cout << std::endl;
         return;
+    }
     if (this->numbers.size() % 2 != 0)
     {
         remain = this->numbers.back();
         numbers.pop_back();
     }
     this->marrySingles();
-    this->forwardRecursion();
-    std::cout << "conatainer: ";
+    std::cout << "conatainer after pairing: ";
     this->printContainer(this->numbers);
     std::cout << "remain: ";
     this->printVector(remain);
     std::cout << std::endl;
+    std::cout << std::endl;
+    std::cout << std::endl;
+    std::cout << std::endl;
+    std::cout << std::endl;
+    this->forwardRecursion();
+    // std::cout << "conatainer: ";
+    // this->printContainer(this->numbers);
+    // std::cout << "remain: ";
+    // this->printVector(remain);
+    // std::cout << std::endl;
+    // std::cout << std::endl;
+    // std::cout << std::endl;
+    // std::cout << std::endl;
     this->backwardsRecursion(remain);
     // std::cout << "container: ";
     // this->printContainer(this->numbers);
@@ -204,17 +263,14 @@ void PmergeMe::unpair()
     holder.clear();
 }
 
-bool compare(std::vector<int> a, std::vector<int> b)
-{
-    i++;
-    if (a.empty() || b.empty())
-        return false;
-    return a.back() < b.back();
-}
 
 void PmergeMe::backwardsRecursion(std::vector<int> remain)
 {
+    std::cout << "container before unpairing: ";
+    this->printContainer(this->numbers);
     this->unpair();
+    std::cout << "container after unpairing: ";
+    this->printContainer(this->numbers);
     std::vector< std::vector<int> > mainChain;
     std::vector< std::vector<int> > pend;
     
@@ -231,6 +287,8 @@ void PmergeMe::backwardsRecursion(std::vector<int> remain)
     this->printContainer(mainChain);
     std::cout << "pand: ";
     this->printContainer(pend);
+    // insertSortedByLastElement(mainChain, pend);
+    // this->numbers = mainChain;
     // for (int i = 0; i < static_cast<int>(pend.size()); i++)
     // {
     // std::cout << "mainchain: ";
@@ -238,6 +296,8 @@ void PmergeMe::backwardsRecursion(std::vector<int> remain)
     // std::cout << "pend: ";
     // this->printContainer(pend);
     std::vector< std::vector<int> >::iterator it = pend.begin();
+    mainChain.insert(mainChain.begin(), *it);
+    pend.erase(it);
     while (pend.size() != 0)
     {
         std::vector< std::vector<int> >::iterator pos = std::lower_bound(mainChain.begin(), mainChain.end(), *it, compare);
@@ -246,11 +306,14 @@ void PmergeMe::backwardsRecursion(std::vector<int> remain)
         this->numbers.clear();
         this->numbers = mainChain;
     }
-    std::cout << "after lower bound insertino" << std::endl;
+    std::cout << "after lower bound insertion" << std::endl;
     std::cout << "mainChain: ";
     this->printContainer(mainChain);
     std::cout << "pand: ";
     this->printContainer(pend);
+    std::cout << std::endl;
+    std::cout << std::endl;
+    std::cout << std::endl;
     // }
 }
 // [[1 2][3][4][5]]
