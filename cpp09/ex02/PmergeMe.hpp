@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PmergeMe.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoigag <student.1337.ma>                   +#+  +:+       +#+        */
+/*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 15:31:53 by hoigag            #+#    #+#             */
-/*   Updated: 2024/01/07 17:30:13 by hoigag           ###   ########.fr       */
+/*   Updated: 2024/01/09 12:46:42 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ class PmergeMe
 		void parseString();
 		void printVector(std::vector<int> numbers);
 		void printContainer(std::vector< std::vector<int> > container);
-		void printNumbers();
 		void forwardRecursion();
 		void unpair();
 		void backwardsRecursion(std::vector<int> remain);
 		void marrySingles();
+		void jacobSthalInsertion(std::vector< std::vector<int> >& mainChain, std::vector< std::vector<int> >& pend);
 		std::vector< std::vector<int> > getNumbers();
 		// ~PmergeMe();
 		// PmergeMe(const PmergeMe& other);
@@ -35,8 +35,8 @@ class PmergeMe
 	private:
 		std::string input;
 		std::vector< std::vector<int> > numbers;
-		std::vector< std::vector<int> > remain;
 };
+
 std::string concat(char **args);
 std::pair<std::vector<int>, std::vector<int> > slice(std::vector<int> main);
 

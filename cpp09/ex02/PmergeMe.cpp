@@ -6,7 +6,7 @@
 /*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 15:31:49 by hoigag            #+#    #+#             */
-/*   Updated: 2024/01/08 17:27:15 by hoigag           ###   ########.fr       */
+/*   Updated: 2024/01/09 12:49:17 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,38 @@
 #include <algorithm>
 #include <limits>
 
+int JSSequence(int index)
+{
+	if (index == 0)
+		return 0;
+	if (index == 1)
+		return 1;
+	return JSSequence(index - 1) + 2 * JSSequence(index - 2);
+}
+
+std::vector<int> getRightSequence(int pendSize)
+{
+	std::vector<int> seq;
+	int i = 0;
+	while (true)
+	{
+        int jacobLmerd = JSSequence(i);
+		if ( jacobLmerd > pendSize)
+        {
+            if (pendSize != JSSequence(i - 1))
+                seq.push_back(pendSize);
+			break;
+        }
+		seq.push_back(jacobLmerd);
+		i++;
+	}
+	seq.erase(seq.begin());
+	seq.erase(seq.begin());
+	return seq;
+}
+
 int i = 0;
+
 void printColored(std::string output, int flag)
 {
     //1 red, 0 green
@@ -89,15 +120,6 @@ void PmergeMe::printContainer(std::vector< std::vector<int> > container)
     printColored("]", 1);
     std::cout << std::endl;
 }
-void PmergeMe::printNumbers()
-{
-    std::cout << "Numbers: ";
-    this->printContainer(this->numbers);
-    std::cout << "Remain: ";
-    this->printContainer(this->remain);
-}
-
-
 
 void PmergeMe::printVector(std::vector<int> numbers)
 {
@@ -120,16 +142,14 @@ void PmergeMe::printVector(std::vector<int> numbers)
 std::vector<int> concatVecs(std::vector<int>& first, std::vector<int>& second)
 {
     std::vector<int> res;
-    // i++;
+    i++;
     if (first.back() < second.back())
     {
-        i++;
         res.insert(res.end(), first.begin(), first.end());
         res.insert(res.end(), second.begin(), second.end());
     }
     else
     {
-        i++;
         res.insert(res.end(), second.begin(), second.end());
         res.insert(res.end(), first.begin(), first.end());
     }
@@ -158,35 +178,6 @@ bool compare(std::vector<int> a, std::vector<int> b)
     return a.back() < b.back();
 }
 
-
-// void insertSortedByLastElement(std::vector<std::vector<int> >& mainChain, std::vector<std::vector<int> >& pend)
-// {
-// //   std::vector<int> seq = jacobStahlSeq(pend.size());
-
-//   int prev = 0;
-//   int inserted = 0;
-//   int jacob = 0;
-//   for (size_t i = 0; i < seq.size(); i++)
-//   {
-//     jacob = seq[i];
-//     while (jacob > prev)
-//     {
-//       if (jacob - 1 == 0){
-//         inserted++;
-//         mainChain.insert(mainChain.begin(), pend[jacob - 1]);
-//       }
-
-//       else
-//       {
-//         std::vector<std::vector<int> >::iterator insertPos = std::lower_bound(mainChain.begin(), mainChain.begin() + inserted + jacob - 1, pend[jacob - 1], compare);
-//         mainChain.insert(insertPos, pend[jacob - 1]);
-//         inserted++;
-//       }
-//       jacob--;
-//     }
-//     prev = seq[i];
-//   }
-// }
 void PmergeMe::forwardRecursion()
 {
     std::cout << "conatainer before pairing: ";
@@ -217,33 +208,8 @@ void PmergeMe::forwardRecursion()
     std::cout << std::endl;
     std::cout << std::endl;
     this->forwardRecursion();
-    // std::cout << "conatainer: ";
-    // this->printContainer(this->numbers);
-    // std::cout << "remain: ";
-    // this->printVector(remain);
-    // std::cout << std::endl;
-    // std::cout << std::endl;
-    // std::cout << std::endl;
-    // std::cout << std::endl;
     this->backwardsRecursion(remain);
-    // std::cout << "container: ";
-    // this->printContainer(this->numbers);
-    // std::cout << "remain: ";
-    // this->printVector(remain);
-    // std::cout << std::endl;
-    // this->printContainer(this->numbers);
-    // exit(1);
 }
-
-// [[1 2 3 4 5 6 7 8]] 
-// [[1 2 3 4][5 6 7 8]]
-// // m = [5 6 7 8]
-// // p = [1 2 3 4]
-// [[1 2][3 4][5 6][7 8]]
-// // m = [3 4] [7 8]
-// // p = [1 2] [5 6]
-// [[1 2] [3 4] [5 6] [7 8]]
-
 
 void PmergeMe::unpair()
 {
@@ -287,25 +253,9 @@ void PmergeMe::backwardsRecursion(std::vector<int> remain)
     this->printContainer(mainChain);
     std::cout << "pand: ";
     this->printContainer(pend);
-    // insertSortedByLastElement(mainChain, pend);
-    // this->numbers = mainChain;
-    // for (int i = 0; i < static_cast<int>(pend.size()); i++)
-    // {
-    // std::cout << "mainchain: ";
-    // this->printContainer(mainChain);
-    // std::cout << "pend: ";
-    // this->printContainer(pend);
-    std::vector< std::vector<int> >::iterator it = pend.begin();
-    mainChain.insert(mainChain.begin(), *it);
-    pend.erase(it);
-    while (pend.size() != 0)
-    {
-        std::vector< std::vector<int> >::iterator pos = std::lower_bound(mainChain.begin(), mainChain.end(), *it, compare);
-        mainChain.insert(pos, *it);
-        pend.erase(it);
-        this->numbers.clear();
-        this->numbers = mainChain;
-    }
+    this->jacobSthalInsertion(mainChain, pend);
+    this->numbers.clear();
+    this->numbers = mainChain;
     std::cout << "after lower bound insertion" << std::endl;
     std::cout << "mainChain: ";
     this->printContainer(mainChain);
@@ -314,10 +264,7 @@ void PmergeMe::backwardsRecursion(std::vector<int> remain)
     std::cout << std::endl;
     std::cout << std::endl;
     std::cout << std::endl;
-    // }
 }
-// [[1 2][3][4][5]]
-// [6 8 1] [0 7 0]
 
 
 
@@ -338,6 +285,36 @@ void PmergeMe::marrySingles()
     }
 }
 
+void PmergeMe::jacobSthalInsertion(std::vector< std::vector<int> >& mainChain, std::vector< std::vector<int> >& pend)
+{
+    std::vector<int> jacobSequence = getRightSequence(pend.size());
+    std::cout << "jacob sequenc: ";
+    this->printVector(jacobSequence);
+    std::cout << std::endl;
+    int jacobNumber = 0;
+    int startingPos = 0;
+    for (size_t i = 0; i < jacobSequence.size(); i++)
+    {
+        int rangeStart = jacobSequence[i];
+        int indexToPush = rangeStart - 1;
+        while (indexToPush >= startingPos)
+        {
+            if (indexToPush == 0)
+            {
+                mainChain.insert(mainChain.begin(), pend[indexToPush]);
+                jacobNumber++;
+            }
+            else
+            {
+                std::vector<std::vector<int> >::iterator pos = std::lower_bound(mainChain.begin(), mainChain.begin() + jacobNumber + indexToPush, pend[indexToPush], compare);
+                mainChain.insert(pos, pend[indexToPush]);
+                jacobNumber++;
+            }
+            indexToPush--;
+        }
+        startingPos = rangeStart;
+    }
+}
 
 
 // PmergeMe::~PmergeMe()
