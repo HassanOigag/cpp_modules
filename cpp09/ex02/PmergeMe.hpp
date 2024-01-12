@@ -6,7 +6,7 @@
 /*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 15:31:53 by hoigag            #+#    #+#             */
-/*   Updated: 2024/01/09 12:46:42 by hoigag           ###   ########.fr       */
+/*   Updated: 2024/01/12 08:12:06 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,19 @@ class PmergeMe
 		void parseString();
 		void printVector(std::vector<int> numbers);
 		void printContainer(std::vector< std::vector<int> > container);
-		void forwardRecursion();
-		void unpair();
-		void backwardsRecursion(std::vector<int> remain);
-		void marrySingles();
-		void jacobSthalInsertion(std::vector< std::vector<int> >& mainChain, std::vector< std::vector<int> >& pend);
+		
+		void forwardRecursionVector();
+		void unpairVector();
+		void backwardsRecursionVector(std::vector<int> remain);
+		void marrySinglesVector();
+		void jacobSthalInsertionVector(std::vector< std::vector<int> >& mainChain, std::vector< std::vector<int> >& pend);
 		std::vector< std::vector<int> > getNumbers();
-		// ~PmergeMe();
-		// PmergeMe(const PmergeMe& other);
-		// PmergeMe& operator=(const PmergeMe& other);
+		~PmergeMe();
 	private:
 		std::string input;
 		std::vector< std::vector<int> > numbers;
+		PmergeMe(const PmergeMe& other);
+		PmergeMe& operator=(const PmergeMe& other);
 };
 
 std::string concat(char **args);

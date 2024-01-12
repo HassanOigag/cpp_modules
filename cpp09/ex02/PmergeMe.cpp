@@ -6,7 +6,7 @@
 /*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 15:31:49 by hoigag            #+#    #+#             */
-/*   Updated: 2024/01/09 12:49:17 by hoigag           ###   ########.fr       */
+/*   Updated: 2024/01/12 08:07:32 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,10 @@ int JSSequence(int index)
 	return JSSequence(index - 1) + 2 * JSSequence(index - 2);
 }
 
-std::vector<int> getRightSequence(int pendSize)
+template <typename CONTAINER>
+CONTAINER getRightSequence(int pendSize)
 {
-	std::vector<int> seq;
+	CONTAINER seq;
 	int i = 0;
 	while (true)
 	{
@@ -139,9 +140,10 @@ void PmergeMe::printVector(std::vector<int> numbers)
     }
     printColored("]", 0);
 }
-std::vector<int> concatVecs(std::vector<int>& first, std::vector<int>& second)
+template <typename CONTAINER>
+std::vector<int> concatVecs(CONTAINER& first, CONTAINER& second)
 {
-    std::vector<int> res;
+    CONTAINER res;
     i++;
     if (first.back() < second.back())
     {
@@ -158,27 +160,27 @@ std::vector<int> concatVecs(std::vector<int>& first, std::vector<int>& second)
     return res;
 }
 
-std::pair<std::vector<int>, std::vector<int> > slice(std::vector<int> main)
+template <typename CONTAINER>
+std::pair<CONTAINER, CONTAINER > slice(CONTAINER main)
 {
     int middle = main.size() / 2;
-    std::vector<int>::iterator it = main.begin();
-    std::vector<int> vec1(it, it + middle);
-    std::vector<int> vec2(it + middle, main.end());
-    std::pair<std::vector<int>, std::vector<int> > pair;
-    pair.first = vec1;
-    pair.second = vec2;
+    typename CONTAINER::iterator it = main.begin();
+    CONTAINER first(it, it + middle);
+    CONTAINER second(it + middle, main.end());
+    std::pair<CONTAINER, CONTAINER > pair;
+    pair.first = first;
+    pair.second = second;
     return pair;
 }
 
-bool compare(std::vector<int> a, std::vector<int> b)
+template <typename CONTAINER>
+bool compare(CONTAINER a, CONTAINER b)
 {
-    if (a.empty() || b.empty())
-        return false;
     i++;
     return a.back() < b.back();
 }
 
-void PmergeMe::forwardRecursion()
+void PmergeMe::forwardRecursionVector()
 {
     std::cout << "conatainer before pairing: ";
     this->printContainer(this->numbers);
@@ -197,7 +199,7 @@ void PmergeMe::forwardRecursion()
         remain = this->numbers.back();
         numbers.pop_back();
     }
-    this->marrySingles();
+    this->marrySinglesVector();
     std::cout << "conatainer after pairing: ";
     this->printContainer(this->numbers);
     std::cout << "remain: ";
@@ -207,11 +209,11 @@ void PmergeMe::forwardRecursion()
     std::cout << std::endl;
     std::cout << std::endl;
     std::cout << std::endl;
-    this->forwardRecursion();
-    this->backwardsRecursion(remain);
+    this->forwardRecursionVector();
+    this->backwardsRecursionVector(remain);
 }
 
-void PmergeMe::unpair()
+void PmergeMe::unpairVector()
 {
     if (this->numbers[0].size() == 1)
         return;
@@ -219,7 +221,7 @@ void PmergeMe::unpair()
     std::vector< std::vector<int> >::iterator it = this->numbers.begin();
     while (it != this->numbers.end())
     {
-        std::pair<std::vector<int>, std::vector<int> > pair = slice(*it);
+        std::pair<std::vector<int>, std::vector<int> > pair = slice<std::vector<int> >(*it);
         holder.push_back(pair.first);
         holder.push_back(pair.second);
         it++;
@@ -230,11 +232,11 @@ void PmergeMe::unpair()
 }
 
 
-void PmergeMe::backwardsRecursion(std::vector<int> remain)
+void PmergeMe::backwardsRecursionVector(std::vector<int> remain)
 {
     std::cout << "container before unpairing: ";
     this->printContainer(this->numbers);
-    this->unpair();
+    this->unpairVector();
     std::cout << "container after unpairing: ";
     this->printContainer(this->numbers);
     std::vector< std::vector<int> > mainChain;
@@ -253,7 +255,7 @@ void PmergeMe::backwardsRecursion(std::vector<int> remain)
     this->printContainer(mainChain);
     std::cout << "pand: ";
     this->printContainer(pend);
-    this->jacobSthalInsertion(mainChain, pend);
+    this->jacobSthalInsertionVector(mainChain, pend);
     this->numbers.clear();
     this->numbers = mainChain;
     std::cout << "after lower bound insertion" << std::endl;
@@ -272,7 +274,8 @@ std::vector< std::vector<int> > PmergeMe::getNumbers()
 {
     return this->numbers;
 }
-void PmergeMe::marrySingles()
+
+void PmergeMe::marrySinglesVector()
 {
     std::vector< std::vector<int> > holder = this->numbers;
     this->numbers.clear();
@@ -285,9 +288,9 @@ void PmergeMe::marrySingles()
     }
 }
 
-void PmergeMe::jacobSthalInsertion(std::vector< std::vector<int> >& mainChain, std::vector< std::vector<int> >& pend)
+void PmergeMe::jacobSthalInsertionVector(std::vector< std::vector<int> >& mainChain, std::vector< std::vector<int> >& pend)
 {
-    std::vector<int> jacobSequence = getRightSequence(pend.size());
+    std::vector<int> jacobSequence = getRightSequence<std::vector<int> >(pend.size());
     std::cout << "jacob sequenc: ";
     this->printVector(jacobSequence);
     std::cout << std::endl;
@@ -306,7 +309,7 @@ void PmergeMe::jacobSthalInsertion(std::vector< std::vector<int> >& mainChain, s
             }
             else
             {
-                std::vector<std::vector<int> >::iterator pos = std::lower_bound(mainChain.begin(), mainChain.begin() + jacobNumber + indexToPush, pend[indexToPush], compare);
+                std::vector<std::vector<int> >::iterator pos = std::lower_bound(mainChain.begin(), mainChain.begin() + jacobNumber + indexToPush, pend[indexToPush], compare<std::vector<int> >);
                 mainChain.insert(pos, pend[indexToPush]);
                 jacobNumber++;
             }
@@ -317,18 +320,20 @@ void PmergeMe::jacobSthalInsertion(std::vector< std::vector<int> >& mainChain, s
 }
 
 
-// PmergeMe::~PmergeMe()
-// {
+PmergeMe::~PmergeMe()
+{
 
-// }
+}
 
-// PmergeMe::PmergeMe(const PmergeMe& other)
-// {
+PmergeMe::PmergeMe(const PmergeMe& other)
+{
+    *this = other;
+}
 
-// }
-
-// PmergeMe& PmergeMe::operator=(const PmergeMe& other)
-// {
-
-// }
+PmergeMe& PmergeMe::operator=(const PmergeMe& other)
+{
+    this->input = other.input;
+    this->numbers = other.numbers;
+    return *this;
+}
 
