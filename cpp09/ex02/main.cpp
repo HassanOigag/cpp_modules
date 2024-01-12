@@ -6,7 +6,7 @@
 /*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 15:31:44 by hoigag            #+#    #+#             */
-/*   Updated: 2024/01/12 08:07:22 by hoigag           ###   ########.fr       */
+/*   Updated: 2024/01/12 19:10:05 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ int main(int argc, char __unused **argv)
 		std::string input = concat(argv + 1);
 		PmergeMe pmm(input);
 		pmm.parseString();
+		// pmm.printContainer(pmm.getDeque());
+		pmm.forwardRecursionDeque();
 		// pmm.printContainer(pmm.getNumbers());
-		pmm.forwardRecursionVector();
-		pmm.printContainer(pmm.getNumbers());
-		std::cout << "len : " << pmm.getNumbers().size() << std::endl;
+		std::cout << "len : " << pmm.getDeque().size() << std::endl;
 		std::cout << "comparaisons: " << i << std::endl;
 		// pmm.printContainer(pmm.getNumbers());
 		// pmm.printNumbers();
