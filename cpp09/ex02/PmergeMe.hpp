@@ -6,7 +6,7 @@
 /*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 15:31:53 by hoigag            #+#    #+#             */
-/*   Updated: 2024/01/12 19:07:40 by hoigag           ###   ########.fr       */
+/*   Updated: 2024/01/13 16:52:55 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ class PmergeMe
 };
 
 std::string concat(char **args);
+// template <typename CONTAINER>
+void printContainer(std::vector<std::vector<int> > container);
 // std::pair<std::vector<int>, std::vector<int> > slice(std::vector<int> main);
 
 #endif

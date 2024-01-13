@@ -6,7 +6,7 @@
 /*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 15:31:49 by hoigag            #+#    #+#             */
-/*   Updated: 2024/01/12 19:19:50 by hoigag           ###   ########.fr       */
+/*   Updated: 2024/01/13 17:25:36 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,8 +111,8 @@ void PmergeMe::parseString()
         this->myDeque.push_back(dequeElement);
     }
 }
-template <typename CONTAINER>
-void printVector(CONTAINER numbers)
+// template <typename CONTAINER>
+void printVector(std::vector<int> numbers)
 {
     if (numbers.empty())
     {
@@ -120,7 +120,7 @@ void printVector(CONTAINER numbers)
         return;
     }
     printColored("[", 0);
-    typename CONTAINER::iterator it = numbers.begin();
+    std::vector<int>::iterator it = numbers.begin();
     while (it != numbers.end())
     {
         std::cout << "\033[35m" << *it << "\033[0m";
@@ -130,10 +130,10 @@ void printVector(CONTAINER numbers)
     }
     printColored("]", 0);
 }
-template <typename CONTAINER>
-void printContainer(CONTAINER container)
+// template <typename CONTAINER>
+void printContainer(std::vector<std::vector<int> > container)
 {
-    typename CONTAINER::iterator it = container.begin();
+    std::vector<std::vector<int> >::iterator it = container.begin();
     printColored("[", 1);
     while (it != container.end())
     {
@@ -185,65 +185,29 @@ bool compare(CONTAINER a, CONTAINER b)
 
 void PmergeMe::forwardRecursionDeque()
 {
-    std::cout << "conatainer before pairing: ";
-    printContainer(this->myDeque);
     std::deque<int> remain;
     if (this->myDeque.size() == 1)
-    {
-        std::cout << "done with pairing : ";
-        printContainer(this->myDeque);
-        std::cout << std::endl;
-        std::cout << std::endl;
-        std::cout << std::endl;
         return;
-    }
     if (this->myDeque.size() % 2 != 0)
     {
         remain = this->myDeque.back();
         myDeque.pop_back();
     }
     this->marrySinglesDeque();
-    std::cout << "conatainer after pairing: ";
-    printContainer(this->numbers);
-    std::cout << "remain: ";
-    printVector(remain);
-    std::cout << std::endl;
-    std::cout << std::endl;
-    std::cout << std::endl;
-    std::cout << std::endl;
-    std::cout << std::endl;
     this->forwardRecursionDeque();
     this->backwardsRecursionDeque(remain);
 }
 void PmergeMe::forwardRecursionVector()
 {
-    std::cout << "conatainer before pairing: ";
-    printContainer(this->numbers);
     std::vector<int> remain;
     if (this->numbers.size() == 1)
-    {
-        std::cout << "done with pairing : ";
-        printContainer(this->numbers);
-        std::cout << std::endl;
-        std::cout << std::endl;
-        std::cout << std::endl;
         return;
-    }
     if (this->numbers.size() % 2 != 0)
     {
         remain = this->numbers.back();
         numbers.pop_back();
     }
     this->marrySinglesVector();
-    std::cout << "conatainer after pairing: ";
-    printContainer(this->numbers);
-    std::cout << "remain: ";
-    printVector(remain);
-    std::cout << std::endl;
-    std::cout << std::endl;
-    std::cout << std::endl;
-    std::cout << std::endl;
-    std::cout << std::endl;
     this->forwardRecursionVector();
     this->backwardsRecursionVector(remain);
 }
@@ -286,11 +250,7 @@ void PmergeMe::unpairDeque()
 
 void PmergeMe::backwardsRecursionVector(std::vector<int> remain)
 {
-    std::cout << "container before unpairing: ";
-    printContainer(this->numbers);
     this->unpairVector();
-    std::cout << "container after unpairing: ";
-    printContainer(this->numbers);
     std::vector< std::vector<int> > mainChain;
     std::vector< std::vector<int> > pend;
     
@@ -303,30 +263,14 @@ void PmergeMe::backwardsRecursionVector(std::vector<int> remain)
     }
     if (!remain.empty())
         pend.push_back(remain);
-    std::cout << "mainChain: ";
-    printContainer(mainChain);
-    std::cout << "pand: ";
-    printContainer(pend);
     this->jacobSthalInsertionVector(mainChain, pend);
     this->numbers.clear();
     this->numbers = mainChain;
-    std::cout << "after lower bound insertion" << std::endl;
-    std::cout << "mainChain: ";
-    printContainer(mainChain);
-    std::cout << "pand: ";
-    printContainer(pend);
-    std::cout << std::endl;
-    std::cout << std::endl;
-    std::cout << std::endl;
 }
 
 void PmergeMe::backwardsRecursionDeque(std::deque<int> remain)
 {
-    std::cout << "container before unpairing: ";
-    printContainer(this->numbers);
     this->unpairDeque();
-    std::cout << "container after unpairing: ";
-    printContainer(this->numbers);
     std::deque< std::deque<int> > mainChain;
     std::deque< std::deque<int> > pend;
     
@@ -339,21 +283,9 @@ void PmergeMe::backwardsRecursionDeque(std::deque<int> remain)
     }
     if (!remain.empty())
         pend.push_back(remain);
-    std::cout << "mainChain: ";
-    printContainer(mainChain);
-    std::cout << "pand: ";
-    printContainer(pend);
     this->jacobSthalInsertionDeque(mainChain, pend);
     this->myDeque.clear();
     this->myDeque = mainChain;
-    std::cout << "after lower bound insertion" << std::endl;
-    std::cout << "mainChain: ";
-    printContainer(mainChain);
-    std::cout << "pand: ";
-    printContainer(pend);
-    std::cout << std::endl;
-    std::cout << std::endl;
-    std::cout << std::endl;
 }
 
 
@@ -395,9 +327,6 @@ void PmergeMe::marrySinglesDeque()
 void PmergeMe::jacobSthalInsertionVector(std::vector< std::vector<int> >& mainChain, std::vector< std::vector<int> >& pend)
 {
     std::vector<int> jacobSequence = getRightSequence<std::vector<int> >(pend.size());
-    std::cout << "jacob sequenc: ";
-    printVector(jacobSequence);
-    std::cout << std::endl;
     int jacobNumber = 0;
     int startingPos = 0;
     for (size_t i = 0; i < jacobSequence.size(); i++)
@@ -425,9 +354,6 @@ void PmergeMe::jacobSthalInsertionVector(std::vector< std::vector<int> >& mainCh
 void PmergeMe::jacobSthalInsertionDeque(std::deque< std::deque<int> >& mainChain, std::deque< std::deque<int> >& pend)
 {
     std::deque<int> jacobSequence = getRightSequence<std::deque<int> >(pend.size());
-    std::cout << "jacob sequenc: ";
-    printVector(jacobSequence);
-    std::cout << std::endl;
     int jacobNumber = 0;
     int startingPos = 0;
     for (size_t i = 0; i < jacobSequence.size(); i++)
