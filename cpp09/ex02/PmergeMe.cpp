@@ -6,7 +6,7 @@
 /*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 15:31:49 by hoigag            #+#    #+#             */
-/*   Updated: 2024/01/13 17:25:36 by hoigag           ###   ########.fr       */
+/*   Updated: 2024/01/14 15:51:28 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ CONTAINER getRightSequence(int pendSize)
 	return seq;
 }
 
-int i = 0;
+int comparaisons = 0;
 
 void printColored(std::string output, int flag)
 {
@@ -147,7 +147,7 @@ template <typename CONTAINER>
 CONTAINER concatVecs(CONTAINER& first, CONTAINER& second)
 {
     CONTAINER res;
-    i++;
+    comparaisons++;
     if (first.back() < second.back())
     {
         res.insert(res.end(), first.begin(), first.end());
@@ -179,7 +179,7 @@ std::pair<CONTAINER, CONTAINER > slice(CONTAINER main)
 template <typename CONTAINER>
 bool compare(CONTAINER a, CONTAINER b)
 {
-    i++;
+    comparaisons++;
     return a.back() < b.back();
 }
 

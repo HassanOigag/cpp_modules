@@ -6,7 +6,7 @@
 /*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 15:31:53 by hoigag            #+#    #+#             */
-/*   Updated: 2024/01/13 16:52:55 by hoigag           ###   ########.fr       */
+/*   Updated: 2024/01/14 15:50:37 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <string>
 #include <vector>
 #include <deque>
-extern int i;
+extern int comparaisons;
 class PmergeMe
 {
 	public:

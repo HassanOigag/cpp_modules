@@ -6,7 +6,7 @@
 /*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 17:31:23 by hoigag            #+#    #+#             */
-/*   Updated: 2023/12/20 13:19:21 by hoigag           ###   ########.fr       */
+/*   Updated: 2024/01/14 16:37:48 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ RPN::RPN(const RPN& other)
 
 RPN& RPN::operator=(const RPN& other)
 {
+    this->expression = other.expression;
     this->mstack = other.mstack;
     return *this;
 }

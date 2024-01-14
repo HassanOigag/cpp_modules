@@ -6,7 +6,7 @@
 /*   By: hoigag <hoigag@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 12:28:15 by hoigag            #+#    #+#             */
-/*   Updated: 2023/12/20 15:25:15 by hoigag           ###   ########.fr       */
+/*   Updated: 2024/01/14 16:32:20 by hoigag           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void BitcoinExchange::loadDataBase()
         throw std::runtime_error("Error: could not open the file");
     std::string line;
     std::getline(file, line);
-    if (line.find("date") == std::string::npos)
+    if (line != "date,exchange_rate")
         throw std::runtime_error("invalid file format");
     while (std::getline(file, line))
     {
@@ -117,13 +117,14 @@ int isDateValid(int day, int month, int year)
     std::time_t t = std::time(0);
     std::tm* now = std::localtime(&t);
     int correctYear = now->tm_year + 1900;
+    int correctMonth = now->tm_mon + 1;
     if (day <= 0 || day > 31 || month <= 0 || month > 12 || year < 2009 || year > correctYear)
         return 0;
     if (year == 2009 && month == 1 && day < 2)
         return (0);
     if (month == 2 && day > 29)
         return 0;
-    if (day > now->tm_mday && month > now->tm_mon && year > correctYear)
+    if ((day > now->tm_mday || month > correctMonth) && year >= correctYear)
         return 0;
     return 1;
 }
@@ -169,7 +170,8 @@ void BitcoinExchange::exchange(std::string fileName)
         throw std::runtime_error("Error: could not open the input file");
     std::string line;
     getline(inputFile, line);
-    if (line.find("value") == std::string::npos)
+    trimString(line);
+    if (line != "date | value")
         throw std::runtime_error("invalid file format");
     while (getline(inputFile, line))
     {
